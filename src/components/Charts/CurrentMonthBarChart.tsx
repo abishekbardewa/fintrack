@@ -18,8 +18,8 @@ const CurrentMonthBarChart: React.FC<any> = () => {
 
 	return (
 		<div>
-			<h2 className="text-2xl font-semibold leading-6 text-gray-900 mb-5">Spending Trends</h2>
-			<div className="h-[500px] w-full p-6 bg-white rounded-[16px]">
+			<h2 className="text-2xl font-semibold leading-6 text-foreground mb-5">Spending Trends</h2>
+			<div className="h-[500px] w-full p-6 bg-card rounded-[16px]">
 				{chartData && chartData.labels.length > 0 ? (
 					<Doughnut
 						ref={chartRef}

@@ -36,9 +36,9 @@ const AddExpenseModal: React.FC<any> = ({ category, closeModal }) => {
 	};
 
 	return (
-		<div className="fixed inset-0 bg-gray-100 bg-opacity-50 flex justify-center items-center">
-			<div className="bg-white p-8 rounded shadow-lg w-96">
-				<h2 className="text-xl font-semibold mb-4">Add Expense for {category?.name}</h2>
+		<div className="fixed inset-0 bg-background/50 backdrop-blur-sm flex justify-center items-center">
+			<div className="bg-card p-8 rounded shadow-lg w-96">
+				<h2 className="text-xl font-semibold mb-4 text-card-foreground">Add Expense for {category?.name}</h2>
 				<form onSubmit={handleSubmit} noValidate>
 					<InputField
 						label="Amount"
@@ -74,17 +74,17 @@ const AddExpenseModal: React.FC<any> = ({ category, closeModal }) => {
 						onChange={(e) => setDescription(e.target.value)}
 					/>
 					<div className="flex flex-1 w-100 items-center justify-start gap-4">
-						<Button
-							buttonType="submit"
-							size="sm"
-							variant="filled"
-							innerClass="w-full border-primary  text-white"
-							disabled={loading}
-							loading={loading}
-						>
+						<Button buttonType="submit" size="sm" variant="filled" innerClass="w-full" disabled={loading} loading={loading}>
 							Add expense
 						</Button>
-						<Button buttonType="button" size="sm" variant="outline" innerClass="w-full  text-red-500" disabled={loading} onClick={closeModal}>
+						<Button
+							buttonType="button"
+							size="sm"
+							variant="outline"
+							innerClass="w-full text-destructive border-destructive hover:bg-destructive/10"
+							disabled={loading}
+							onClick={closeModal}
+						>
 							Cancel
 						</Button>
 					</div>

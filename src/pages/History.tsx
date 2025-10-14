@@ -119,36 +119,36 @@ const History: React.FC = () => {
 				<>
 					{insights && (
 						<>
-							<h2 className="text-2xl font-semibold leading-6 text-gray-900 mb-5">Insights</h2>
+							<h2 className="text-2xl font-semibold leading-6 text-foreground mb-5">Insights</h2>
 							<ul role="list" className="">
 								{insights.highestSpendingMonth && (
 									<li className="flex justify-between gap-x-6">
-										<p className="text-md   text-gray-500">{insights.highestSpendingMonth}</p>
+										<p className="text-md text-muted-foreground">{insights.highestSpendingMonth}</p>
 									</li>
 								)}
 								{insights.lowestSpendingMonth && (
 									<li className="flex justify-between gap-x-6">
-										<p className="text-md   text-gray-500">{insights.lowestSpendingMonth}</p>
+										<p className="text-md text-muted-foreground">{insights.lowestSpendingMonth}</p>
 									</li>
 								)}
 								{insights.spendingIncreaseDecrease && (
 									<li className="flex justify-between gap-x-6">
-										<p className="text-md   text-gray-500">{insights.spendingIncreaseDecrease}</p>
+										<p className="text-md text-muted-foreground">{insights.spendingIncreaseDecrease}</p>
 									</li>
 								)}
 								{insights.biggestCategorySpending && (
 									<li className="flex justify-between gap-x-6">
-										<p className="text-md   text-gray-500">{insights.biggestCategorySpending}</p>
+										<p className="text-md text-muted-foreground">{insights.biggestCategorySpending}</p>
 									</li>
 								)}
 								{insights.totalSpent && (
 									<li className="flex justify-between gap-x-6">
-										<p className="text-md   text-gray-500">{insights.totalSpent}</p>
+										<p className="text-md text-muted-foreground">{insights.totalSpent}</p>
 									</li>
 								)}
 								{insights.averageMonthlySpending && (
 									<li className="flex justify-between gap-x-6">
-										<p className="text-md   text-gray-500">{insights.averageMonthlySpending}</p>
+										<p className="text-md text-muted-foreground">{insights.averageMonthlySpending}</p>
 									</li>
 								)}
 							</ul>
@@ -157,8 +157,8 @@ const History: React.FC = () => {
 					{comparisonData && totalSpentData && (
 						<div className="grid grid-cols-1 md:grid-cols-2  gap-8 mt-20">
 							<div>
-								<h2 className="text-2xl font-semibold leading-6 text-gray-900 mb-5">Category Comparison</h2>
-								<div className="h-[500px] p-6 bg-white rounded-[16px]">
+								<h2 className="text-2xl font-semibold leading-6 text-foreground mb-5">Category Comparison</h2>
+								<div className="h-[500px] p-6 bg-card rounded-[16px]">
 									{comparisonData?.labels.length > 0 ? (
 										<Bar
 											data={comparisonData}

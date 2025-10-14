@@ -32,9 +32,9 @@ const AddCategoryModal: React.FC<any> = ({ onClose }) => {
 	};
 
 	return (
-		<div className="fixed inset-0 bg-gray-100 bg-opacity-50 flex justify-center items-center">
-			<div className="bg-white p-8 rounded shadow-lg w-96">
-				<h2 className="text-xl font-semibold mb-4">Add new category</h2>
+		<div className="fixed inset-0 bg-background/50 backdrop-blur-sm flex justify-center items-center">
+			<div className="bg-card p-8 rounded shadow-lg w-96">
+				<h2 className="text-xl font-semibold mb-4 text-card-foreground">Add new category</h2>
 				<form onSubmit={handleSubmit} noValidate>
 					<InputField
 						label="Category name"
@@ -48,17 +48,17 @@ const AddCategoryModal: React.FC<any> = ({ onClose }) => {
 						onChange={handleCategoryChange}
 					/>
 					<div className="flex flex-1 w-100 items-center justify-start gap-4">
-						<Button
-							buttonType="submit"
-							size="sm"
-							variant="filled"
-							innerClass="w-full border-primary bg-blue-500 text-white"
-							disabled={loading}
-							loading={loading}
-						>
+						<Button buttonType="submit" size="sm" variant="filled" innerClass="w-full" disabled={loading} loading={loading}>
 							Add
 						</Button>
-						<Button buttonType="button" size="sm" variant="outline" innerClass="w-full  text-red-500" disabled={loading} onClick={onClose}>
+						<Button
+							buttonType="button"
+							size="sm"
+							variant="outline"
+							innerClass="w-full text-destructive border-destructive hover:bg-destructive/10"
+							disabled={loading}
+							onClick={onClose}
+						>
 							Cancel
 						</Button>
 					</div>

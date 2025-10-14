@@ -43,7 +43,7 @@ const ExpenseCategory: React.FC = () => {
 	return (
 		<div>
 			<div className="flex justify-between items-center  mb-5">
-				<h2 className="text-2xl font-semibold leading-6 text-gray-900">Expense Categories</h2>
+				<h2 className="text-2xl font-semibold leading-6 text-foreground">Expense Categories</h2>
 				<Button
 					buttonType="button"
 					size="md"
@@ -58,18 +58,18 @@ const ExpenseCategory: React.FC = () => {
 			</div>
 			<ul role="list" className="h-[500px] overflow-y-auto scrollbar-hidden">
 				{categories.map((data) => (
-					<li key={data.category?._id} className=" flex justify-between gap-x-6 py-3 hover:bg-gray-50 ">
+					<li key={data.category?._id} className=" flex justify-between gap-x-6 py-3 hover:bg-muted ">
 						{/* <div className=" flex justify-between gap-x-6 py-3 "> */}
 						<div className="flex min-w-0 gap-x-4">
 							<div className="min-w-0 flex-auto">
-								<p className="text-sm font-semibold leading-6 text-gray-900">{data.category.name}</p>
+								<p className="text-sm font-semibold leading-6 text-foreground">{data.category.name}</p>
 							</div>
 						</div>
 						<div className="flex shrink-0 items-center gap-x-4">
-							<p className="text-sm leading-6 text-gray-900">{formatCurrency(data.totalAmount)}</p>
+							<p className="text-sm leading-6 text-foreground">{formatCurrency(data.totalAmount)}</p>
 							<CategoryButton onClick={() => openModal(data.category)} />
-							<div role="button" className="text-indigo-600 hover:text-indigo-900 cursor-pointer" onClick={() => handleDelete(data.category)}>
-								<FaTrash className="h-5 w-5 text-red-600" />
+							<div role="button" className="text-destructive hover:text-destructive/80 cursor-pointer" onClick={() => handleDelete(data.category)}>
+								<FaTrash className="h-5 w-5 text-destructive" />
 							</div>
 						</div>
 						{/* </div> */}

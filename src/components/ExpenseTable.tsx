@@ -41,45 +41,45 @@ const ExpenseTable: React.FC = () => {
 
 	return (
 		<div>
-			<h2 className="text-2xl font-semibold leading-6 text-gray-900 mb-5">Expense Entries</h2>
-			<div className="min-w-full align-middle  bg-white rounded-[16px]  h-[500px] overflow-y-auto overflow-x-auto  scrollbar-hidden">
+			<h2 className="text-2xl font-semibold leading-6 text-foreground mb-5">Expense Entries</h2>
+			<div className="min-w-full align-middle  bg-card rounded-[16px]  h-[500px] overflow-y-auto overflow-x-auto  scrollbar-hidden">
 				{paginationLoading ? (
 					<Loader />
 				) : paginatedExpenses && paginatedExpenses.length > 0 ? (
-					<table className="min-w-full divide-y divide-gray-300">
-						<thead className="bg-gray-100">
+					<table className="min-w-full divide-y divide-border">
+						<thead className="bg-muted">
 							<tr>
-								<th scope="col" className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900">
+								<th scope="col" className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-foreground">
 									Category
 								</th>
-								<th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 whitespace-nowrap">
+								<th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-foreground whitespace-nowrap">
 									Added date
 								</th>
-								<th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+								<th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-foreground">
 									Amount
 								</th>
-								<th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+								<th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-foreground">
 									Action
 								</th>
 							</tr>
 						</thead>
-						<tbody className="divide-y divide-gray-200 bg-white">
+						<tbody className="divide-y divide-border bg-card">
 							{paginatedExpenses.map((expense, idx) => (
 								<tr key={`${expense.category}-${idx}`}>
-									<td className="py-4 pl-4 pr-3 text-sm font-medium text-gray-900">
+									<td className="py-4 pl-4 pr-3 text-sm font-medium text-foreground">
 										{expense.category}
-										{expense.description && <p className="mt-1   text-xs leading-5 text-gray-500">{expense.description}</p>}
+										{expense.description && <p className="mt-1   text-xs leading-5 text-muted-foreground">{expense.description}</p>}
 									</td>
-									<td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{formatDate(expense.date)}</td>
-									<td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{formatCurrency(expense.amount)}</td>
+									<td className="whitespace-nowrap px-3 py-4 text-sm text-muted-foreground">{formatDate(expense.date)}</td>
+									<td className="whitespace-nowrap px-3 py-4 text-sm text-muted-foreground">{formatCurrency(expense.amount)}</td>
 
 									<td className="whitespace-nowrap  px-3 py-5 text-right text-sm font-medium sm:pr-0 ">
 										<div className="flex item-center  gap-4">
-											<div role="button" className="text-indigo-600 hover:text-indigo-900 cursor-pointer" onClick={() => handleEdit(expense)}>
+											<div role="button" className="text-primary hover:text-primary/80 cursor-pointer" onClick={() => handleEdit(expense)}>
 												<FaPenToSquare className="h-5 w-5 text-primary" />
 											</div>
-											<div role="button" className="text-indigo-600 hover:text-indigo-900 cursor-pointer" onClick={() => handleDelete(expense)}>
-												<FaTrash className="h-5 w-5 text-red-600" />
+											<div role="button" className="text-destructive hover:text-destructive/80 cursor-pointer" onClick={() => handleDelete(expense)}>
+												<FaTrash className="h-5 w-5 text-destructive" />
 											</div>
 										</div>
 									</td>

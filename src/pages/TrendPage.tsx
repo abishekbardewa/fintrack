@@ -187,7 +187,7 @@ const TrendPage: React.FC = () => {
 							<ul role="list" className="">
 								{categoryInsights?.map((insight, idx) => (
 									<li key={insight + idx} className="flex justify-between gap-x-6">
-										<p className="text-md text-gray-500">{insight}</p>
+										<p className="text-md text-muted-foreground">{insight}</p>
 									</li>
 								))}
 							</ul>
@@ -196,8 +196,8 @@ const TrendPage: React.FC = () => {
 					{categoryChart && (
 						<div className="grid grid-cols-1 md:grid-cols-1  gap-8 mt-20">
 							<div>
-								<h2 className="text-2xl font-semibold leading-6 text-gray-900 mb-5">Category Trend Comparison</h2>
-								<div className="h-[500px] p-6 bg-white rounded-[16px]">
+								<h2 className="text-2xl font-semibold leading-6 text-foreground mb-5">Category Trend Comparison</h2>
+								<div className="h-[500px] p-6 bg-card rounded-[16px]">
 									{categoryChart && categoryChart?.labels?.length > 0 ? (
 										<Line
 											data={categoryChart}
@@ -226,30 +226,30 @@ const TrendPage: React.FC = () => {
 								<ul role="list" className="grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
 									{insights?.totalSpent && (
 										<li className="col-span-1 flex rounded-md shadow-sm">
-											<div className="flex flex-1 items-center justify-between truncate rounded-md border border-gray-200 bg-white">
+											<div className="flex flex-1 items-center justify-between truncate rounded-md border border-border bg-card">
 												<div className="flex-1 truncate px-4 py-2 text-sm">
-													<h2 className="font-medium text-gray-900 hover:text-gray-600">Total spent</h2>
-													<p className="text-gray-500">{formatCurrency(insights?.totalSpent)}</p>
+													<h2 className="font-medium text-foreground hover:text-primary">Total spent</h2>
+													<p className="text-muted-foreground">{formatCurrency(insights?.totalSpent)}</p>
 												</div>
 											</div>
 										</li>
 									)}
 									{insights?.averageSpent && (
 										<li className="col-span-1 flex rounded-md shadow-sm">
-											<div className="flex flex-1 items-center justify-between truncate rounded-md border border-gray-200 bg-white">
+											<div className="flex flex-1 items-center justify-between truncate rounded-md border border-border bg-card">
 												<div className="flex-1 truncate px-4 py-2 text-sm">
-													<h2 className="font-medium text-gray-900 hover:text-gray-600">Average spent</h2>
-													<p className="text-gray-500">{formatCurrency(insights?.averageSpent)}</p>
+													<h2 className="font-medium text-foreground hover:text-primary">Average spent</h2>
+													<p className="text-muted-foreground">{formatCurrency(insights?.averageSpent)}</p>
 												</div>
 											</div>
 										</li>
 									)}
 									{insights?.numberOfMonths && (
 										<li className="col-span-1 flex rounded-md shadow-sm">
-											<div className="flex flex-1 items-center justify-between truncate rounded-md border border-gray-200 bg-white">
+											<div className="flex flex-1 items-center justify-between truncate rounded-md border border-border bg-card">
 												<div className="flex-1 truncate px-4 py-2 text-sm">
-													<h2 className="font-medium text-gray-900 hover:text-gray-600">Number of months</h2>
-													<p className="text-gray-500">{insights?.numberOfMonths}</p>
+													<h2 className="font-medium text-foreground hover:text-primary">Number of months</h2>
+													<p className="text-muted-foreground">{insights?.numberOfMonths}</p>
 												</div>
 											</div>
 										</li>
@@ -257,14 +257,14 @@ const TrendPage: React.FC = () => {
 								</ul>
 								{insights?.topCategories && insights.topCategories?.length > 0 && (
 									<div>
-										<h2 className="text-medium font-medium text-gray-900 mt-5">Top categories</h2>
+										<h2 className="text-medium font-medium text-foreground mt-5">Top categories</h2>
 										<ul role="list" className="mt-1 grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
 											{insights.topCategories.map((top) => (
 												<li key={top.totalSpent} className="col-span-1 flex rounded-md shadow-sm">
-													<div className="flex flex-1 items-center justify-between truncate rounded-md border border-gray-200 bg-white">
+													<div className="flex flex-1 items-center justify-between truncate rounded-md border border-border bg-card">
 														<div className="flex-1 truncate px-4 py-2 text-sm">
-															<h2 className="font-medium text-gray-900 hover:text-gray-600">{top?.category}</h2>
-															<p className="text-gray-500">{formatCurrency(top?.totalSpent)}</p>
+															<h2 className="font-medium text-foreground hover:text-primary">{top?.category}</h2>
+															<p className="text-muted-foreground">{formatCurrency(top?.totalSpent)}</p>
 														</div>
 													</div>
 												</li>

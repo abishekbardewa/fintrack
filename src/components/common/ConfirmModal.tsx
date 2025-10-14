@@ -67,9 +67,9 @@ const ConfirmModal: React.FC<any> = ({
 					</button>
 					<div className="p-4 md:p-5 text-center">
 						<div className="flex items-center justify-center mb-5">{icon}</div>
-						<h3 className="mb-2 text-md font-normal text-gray-500">{title}</h3>
-						{subtitle && <p className="mb-5 text-sm font-normal text-gray-700">{subtitle}</p>}
-						<p className="mb-5 text-sm text-gray-700">{message}</p>
+						<h3 className="mb-2 text-md font-normal text-muted-foreground">{title}</h3>
+						{subtitle && <p className="mb-5 text-sm font-normal text-foreground">{subtitle}</p>}
+						<p className="mb-5 text-sm text-foreground">{message}</p>
 						{isBtn && (
 							<div className="flex flex-col md:flex-row gap-3 md:gap-0  justify-center items-center">
 								<button
@@ -86,7 +86,7 @@ const ConfirmModal: React.FC<any> = ({
 									<button
 										disabled={cancelDisabled}
 										type="button"
-										className={`py-2.5 px-5 w-full md:w-[50%] text-sm font-medium text-gray-900 focus:outline-none bg-white  rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100  ${
+										className={`py-2.5 px-5 w-full md:w-[50%] text-sm font-medium text-foreground focus:outline-none bg-card rounded-full border border-border hover:bg-muted hover:text-primary focus:z-10 focus:ring-4 focus:ring-ring ${
 											cancelDisabled ? 'cursor-not-allowed' : ''
 										}`}
 										onClick={onCancel}

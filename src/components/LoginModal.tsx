@@ -88,11 +88,11 @@ const LoginModal: React.FC<LoginModalProps> = ({ onClose, onLoginSuccess, onRegi
 	};
 
 	return (
-		<div className="fixed inset-0 bg-gray-100 bg-opacity-50 flex justify-center items-center">
-			<div className="relative overflow-hidden bg-white p-8 rounded shadow-lg w-96">
+		<div className="fixed inset-0 bg-background/50 backdrop-blur-sm flex justify-center items-center">
+			<div className="relative overflow-hidden bg-card p-8 rounded shadow-lg w-96">
 				{loading && <ProgressBar />}
-				<h2 className="text-xl font-semibold">Log In to Your Account</h2>
-				<p className="mt-1 mb-4 text-sm text-gray-500">Welcome back! Let’s track your expenses</p>
+				<h2 className="text-xl font-semibold text-card-foreground">Log In to Your Account</h2>
+				<p className="mt-1 mb-4 text-sm text-muted-foreground">Welcome back! Let's track your expenses</p>
 				<form onSubmit={handleSubmit} noValidate>
 					<InputField
 						label="Email"
@@ -120,30 +120,30 @@ const LoginModal: React.FC<LoginModalProps> = ({ onClose, onLoginSuccess, onRegi
 
 					<div className="flex items-center mb-4 mt-[-8px]">
 						<input type="checkbox" id="show-password" checked={showPassword} onChange={toggleShowPassword} className="mr-2" />
-						<label htmlFor="show-password" className="text-sm text-gray-700">
+						<label htmlFor="show-password" className="text-sm text-foreground">
 							Show password
 						</label>
 					</div>
 
-					<Button
-						buttonType="submit"
-						size="sm"
-						variant="filled"
-						innerClass="w-full bg-blue-500 text-white border-primary"
-						disabled={loading}
-						loading={loading}
-					>
+					<Button buttonType="submit" size="sm" variant="filled" innerClass="w-full" disabled={loading} loading={loading}>
 						{loading ? 'Logging in...' : 'Login'}
 					</Button>
 
-					<Button buttonType="button" size="sm" variant="outline" innerClass="w-full mt-4 text-red-500" onClick={onClose} disabled={loading}>
+					<Button
+						buttonType="button"
+						size="sm"
+						variant="outline"
+						innerClass="w-full mt-4 text-destructive border-destructive hover:bg-destructive/10"
+						onClick={onClose}
+						disabled={loading}
+					>
 						Cancel
 					</Button>
 				</form>
 				<div className="mt-4 text-center">
-					<h2 className="text-sm font-medium text-gray-600">
+					<h2 className="text-sm font-medium text-muted-foreground">
 						Don't have a account?{' '}
-						<span className="text-primary font-semibold cursor-pointer" onClick={openRegister}>
+						<span className="text-primary font-semibold cursor-pointer hover:underline" onClick={openRegister}>
 							{' '}
 							Sign Up Here!
 						</span>
