@@ -49,8 +49,9 @@ export const ExpenseProvider = ({ children }: { children: React.ReactNode }) => 
 				const { data: paginatedExpenseResponse } = await getPaginatedExpense(page, limit, selectedYear, selectedMonth);
 				setPaginatedExpense(paginatedExpenseResponse.data.expenses);
 				setTotalCount(paginatedExpenseResponse.data.total);
-			} catch (error) {
-				toast.error('Failed to fetch paginated expenses');
+			} catch (error: any) {
+				const errorMessage = error?.response?.data?.msg || 'Failed to fetch expenses. Please try again.';
+				toast.error(errorMessage);
 			} finally {
 				setPaginationLoading(false);
 			}
@@ -74,8 +75,9 @@ export const ExpenseProvider = ({ children }: { children: React.ReactNode }) => 
 
 			setMostFrequent(expenseResponse.data.categoryWithHighestTransaction);
 			setLeastFrequent(expenseResponse.data.categoryWithLowestTransaction);
-		} catch (error) {
-			toast.error('Failed to fetch expenses');
+		} catch (error: any) {
+			const errorMessage = error?.response?.data?.msg || 'Failed to load expense data. Please refresh the page.';
+			toast.error(errorMessage);
 		} finally {
 			setLoading(false);
 		}
@@ -90,8 +92,9 @@ export const ExpenseProvider = ({ children }: { children: React.ReactNode }) => 
 				labels: chartResponse.data.labels,
 				datasets: chartResponse.data.datasets,
 			});
-		} catch (error) {
-			toast.error('Failed to fetch monthly chart');
+		} catch (error: any) {
+			const errorMessage = error?.response?.data?.msg || 'Failed to load chart data. Please try again.';
+			toast.error(errorMessage);
 		} finally {
 			setLoading(false);
 		}
@@ -104,8 +107,9 @@ export const ExpenseProvider = ({ children }: { children: React.ReactNode }) => 
 			setMonthlyInsights(insightsResponse.data.monthlyInsights);
 			setOverallImprovement(insightsResponse.data.overallImprovement);
 			setOverallWarnings(insightsResponse.data.overallWarnings);
-		} catch (error) {
-			toast.error('Failed to fetch monthly insights');
+		} catch (error: any) {
+			const errorMessage = error?.response?.data?.msg || 'Failed to load insights. Please try again.';
+			toast.error(errorMessage);
 		} finally {
 			setLoading(false);
 		}
@@ -127,8 +131,9 @@ export const ExpenseProvider = ({ children }: { children: React.ReactNode }) => 
 				fetchExpenses();
 				fetchCurrentMonthlChart();
 				fetchCurrentMonthlInsights();
-			} catch (error) {
-				toast.error('Failed to add category');
+			} catch (error: any) {
+				const errorMessage = error?.response?.data?.msg || 'Failed to add category. Please try again.';
+				toast.error(errorMessage);
 			} finally {
 				setLoading(false);
 			}
@@ -145,8 +150,9 @@ export const ExpenseProvider = ({ children }: { children: React.ReactNode }) => 
 				fetchExpenses();
 				fetchCurrentMonthlChart();
 				fetchCurrentMonthlInsights();
-			} catch (error) {
-				toast.error('Failed to delete category');
+			} catch (error: any) {
+				const errorMessage = error?.response?.data?.msg || 'Failed to delete category. Please try again.';
+				toast.error(errorMessage);
 			} finally {
 				setLoading(false);
 			}
@@ -164,8 +170,9 @@ export const ExpenseProvider = ({ children }: { children: React.ReactNode }) => 
 				fetchCurrentMonthlChart();
 				fetchCurrentMonthlInsights();
 				fetchPaginatedExpenses();
-			} catch (error) {
-				toast.error('Failed to add expense');
+			} catch (error: any) {
+				const errorMessage = error?.response?.data?.msg || 'Failed to add expense. Please try again.';
+				toast.error(errorMessage);
 			} finally {
 				setLoading(false);
 			}
@@ -183,8 +190,9 @@ export const ExpenseProvider = ({ children }: { children: React.ReactNode }) => 
 				fetchCurrentMonthlChart();
 				fetchCurrentMonthlInsights();
 				fetchPaginatedExpenses();
-			} catch (error) {
-				toast.error('Failed to delete expense');
+			} catch (error: any) {
+				const errorMessage = error?.response?.data?.msg || 'Failed to delete expense. Please try again.';
+				toast.error(errorMessage);
 			} finally {
 				setLoading(false);
 			}
@@ -203,8 +211,9 @@ export const ExpenseProvider = ({ children }: { children: React.ReactNode }) => 
 				fetchCurrentMonthlChart();
 				fetchCurrentMonthlInsights();
 				fetchPaginatedExpenses();
-			} catch (error) {
-				toast.error('Failed to update expense');
+			} catch (error: any) {
+				const errorMessage = error?.response?.data?.msg || 'Failed to update expense. Please try again.';
+				toast.error(errorMessage);
 			} finally {
 				setLoading(false);
 			}

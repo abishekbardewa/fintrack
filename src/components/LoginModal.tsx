@@ -59,7 +59,8 @@ const LoginModal: React.FC<LoginModalProps> = ({ onClose, onLoginSuccess, onRegi
 				toast.error(data.msg);
 			}
 		} catch (error: any) {
-			toast.error(error.response.data.msg);
+			const errorMessage = error?.response?.data?.msg || error?.message || 'Login failed. Please try again.';
+			toast.error(errorMessage);
 		} finally {
 			setLoading(false);
 		}

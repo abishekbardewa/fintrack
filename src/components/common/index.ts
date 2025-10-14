@@ -6,6 +6,7 @@ export { default as ChartContainer } from './ChartContainer';
 export { default as ConfirmModal } from './ConfirmModal';
 export { default as Dropdown } from './Dropdown';
 export { default as EmptyState } from './EmptyState';
+export { default as ErrorState } from './ErrorState';
 export { default as FormActions } from './FormActions';
 export { default as InfoCard } from './InfoCard';
 export { default as InputField } from './InputField';

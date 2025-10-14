@@ -53,7 +53,8 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ onClose, onRegisterSucces
 				toast.error(data.err.msg);
 			}
 		} catch (error: any) {
-			toast.error(error.response.data.msg);
+			const errorMessage = error?.response?.data?.msg || error?.message || 'Registration failed. Please try again.';
+			toast.error(errorMessage);
 		} finally {
 			setLoading(false);
 		}
