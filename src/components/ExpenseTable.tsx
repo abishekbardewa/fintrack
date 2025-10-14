@@ -1,5 +1,6 @@
 import { useExpenseContext } from './context/ExpenseProvider';
 import EmptyState from './common/EmptyState';
+import SectionHeader from './common/SectionHeader';
 import { FaPenToSquare, FaTrash } from 'react-icons/fa6';
 import { useEffect, useState } from 'react';
 import ConfirmModal from './common/ConfirmModal';
@@ -41,7 +42,7 @@ const ExpenseTable: React.FC = () => {
 
 	return (
 		<div>
-			<h2 className="text-2xl font-semibold leading-6 text-foreground mb-5">Expense Entries</h2>
+			<SectionHeader title="Expense Entries" />
 			<div className="min-w-full align-middle  bg-card rounded-[16px]  h-[500px] overflow-y-auto overflow-x-auto  scrollbar-hidden">
 				{paginationLoading ? (
 					<Loader />

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import CategoryButton from './common/CategoryButton';
 import Button from './common/Button';
+import SectionHeader from './common/SectionHeader';
 import { FaPlus, FaTrash } from 'react-icons/fa6';
 import AddCategoryModal from './AddCategoryModal';
 import AddExpenseModal from './AddExpenseModal';
@@ -42,20 +43,22 @@ const ExpenseCategory: React.FC = () => {
 
 	return (
 		<div>
-			<div className="flex justify-between items-center  mb-5">
-				<h2 className="text-2xl font-semibold leading-6 text-foreground">Expense Categories</h2>
-				<Button
-					buttonType="button"
-					size="md"
-					variant="filled"
-					innerClass="bg-white"
-					innerTextClass="text-primary whitespace-nowrap"
-					startIcon={<FaPlus />}
-					onClick={() => setShowCategoryModal(true)}
-				>
-					New category
-				</Button>
-			</div>
+			<SectionHeader
+				title="Expense Categories"
+				action={
+					<Button
+						buttonType="button"
+						size="md"
+						variant="filled"
+						innerClass="bg-white"
+						innerTextClass="text-primary whitespace-nowrap"
+						startIcon={<FaPlus />}
+						onClick={() => setShowCategoryModal(true)}
+					>
+						New category
+					</Button>
+				}
+			/>
 			<ul role="list" className="h-[500px] overflow-y-auto scrollbar-hidden">
 				{categories.map((data) => (
 					<li key={data.category?._id} className=" flex justify-between gap-x-6 py-3 hover:bg-muted ">

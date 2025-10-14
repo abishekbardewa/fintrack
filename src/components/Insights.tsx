@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import Loader from './common/Loader';
+import SectionHeader from './common/SectionHeader';
 import { useExpenseContext } from './context/ExpenseProvider';
 import MonthlyInsights from './MonthlyInsights';
 import ImprovementInsights from './ImprovementInsights';
@@ -20,8 +21,7 @@ const Insights: React.FC = () => {
 	}
 	return (
 		<div>
-			<h2 className="text-2xl font-semibold leading-6 text-foreground mb-5">Key Insights</h2>
-
+			<SectionHeader title="Key Insights" />
 			<div className="h-[500px] px-5 py-4 pb-2 bg-card rounded-[16px]">
 				<ul className="flex overflow-y-auto md:mb-4">
 					<li className="me-2">

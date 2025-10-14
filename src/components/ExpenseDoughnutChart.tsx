@@ -1,11 +1,10 @@
 import { useEffect, useRef } from 'react';
 import { Doughnut } from 'react-chartjs-2';
-
 import 'chart.js/auto';
 import { useExpenseContext } from './context/ExpenseProvider';
-import EmptyState from './common/EmptyState';
-import Loader from './common/Loader';
-const ExpenseDoughnutChart: React.FC<any> = () => {
+import ChartContainer from './common/ChartContainer';
+
+const ExpenseDoughnutChart: React.FC = () => {
 	const chartRef = useRef<any>();
 	const { loading, chartData } = useExpenseContext();
 
@@ -19,34 +18,26 @@ const ExpenseDoughnutChart: React.FC<any> = () => {
 	}, [chartData]);
 
 	if (loading) {
-		// return <Loader />;
-		return;
+		return null;
 	}
 
 	return (
-		<div>
-			<h2 className="text-2xl font-semibold leading-6 text-foreground mb-5">Spending Trends</h2>
-			<div className="h-[500px] p-6 bg-card rounded-[16px]">
-				{chartData && chartData.labels.length > 0 ? (
-					<Doughnut
-						ref={chartRef}
-						data={chartData}
-						options={{
-							responsive: true,
-							maintainAspectRatio: false,
-							// plugins: {
-							// 	legend: {
-							// 		position: 'right',
-							// 	},
-							// },
-						}}
-						style={{ height: '100%', width: '100%' }}
-					/>
-				) : (
-					<EmptyState title="No insights available." subtitle="Add your expenses to visualize your spending patterns and trends." />
-				)}
-			</div>
-		</div>
+		<ChartContainer
+			title="Spending Trends"
+			isEmpty={!chartData || chartData.labels.length === 0}
+			emptyTitle="No insights available."
+			emptySubtitle="Add your expenses to visualize your spending patterns and trends."
+		>
+			<Doughnut
+				ref={chartRef}
+				data={chartData}
+				options={{
+					responsive: true,
+					maintainAspectRatio: false,
+				}}
+				style={{ height: '100%', width: '100%' }}
+			/>
+		</ChartContainer>
 	);
 };
 

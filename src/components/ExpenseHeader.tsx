@@ -1,114 +1,31 @@
 import { LuLoader2 } from 'react-icons/lu';
 import { formatCurrency } from '../utils';
 import { useExpenseContext } from './context/ExpenseProvider';
+import StatCard from './common/StatCard';
+import InfoCard from './common/InfoCard';
 
 const ExpenseHeader: React.FC = () => {
-	const { loading, totalAmount, totalAmountToday, newCategory, topSpentCategory, LowestSpentCategory, mostFrequent, leastFrequent } =
-		useExpenseContext();
-	const currentDate = new Date().toLocaleDateString('en-US', {
-		year: 'numeric',
-		month: 'short',
-		day: '2-digit',
-	});
+	const { loading, totalAmount, totalAmountToday, topSpentCategory, LowestSpentCategory, mostFrequent, leastFrequent } = useExpenseContext();
 	const monthName = new Date().toLocaleString('default', { month: 'long' });
-	// className = ' flex  items-center justify-center gap-8';
+
 	return (
 		<div>
 			{loading ? (
 				<LuLoader2 className="w-6 h-6 text-primary animate-spin" />
 			) : (
 				<>
-					<div>
-						<div className="mt-5 grid grid-cols-1 gap-5 lg:grid-cols-2 ">
-							<div className="overflow-hidden rounded-lg bg-card px-4 py-5 shadow sm:p-6">
-								<dt className="truncate text-sm font-medium text-muted-foreground">Total spent in {monthName}</dt>
-								<dd className="mt-1 text-3xl font-semibold tracking-tight text-foreground">{formatCurrency(totalAmount)}</dd>
-							</div>
-							<div className="overflow-hidden rounded-lg bg-card px-4 py-5 shadow sm:p-6">
-								<dt className="truncate text-sm font-medium text-muted-foreground">Total spent today</dt>
-								<dd className="mt-1 text-3xl font-semibold tracking-tight text-foreground">{formatCurrency(totalAmountToday)}</dd>
-							</div>
-						</div>
-
-						{/* <div className="overflow-hidden rounded-lg bg-white px-4 py-5 shadow sm:p-6">
-								<dt className="mb-1 text-sm font-medium text-gray-500">New categories</dt>
-								{newCategory.length > 0 ? (
-									newCategory.map((category, index) => (
-										<dd className=" text-lg font-semibold tracking-tight text-gray-900" key={index}>
-											{category}
-										</dd>
-									))
-								) : (
-									<dd className="text-lg font-semibold tracking-tight text-gray-900">No data available</dd>
-								)}
-							</div> */}
+					{/* Main Stats */}
+					<div className="mt-5 grid grid-cols-1 gap-5 lg:grid-cols-2">
+						<StatCard label={`Total spent in ${monthName}`} value={formatCurrency(totalAmount)} />
+						<StatCard label="Total spent today" value={formatCurrency(totalAmountToday)} />
 					</div>
 
+					{/* Info Cards */}
 					<ul role="list" className="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6 lg:grid-cols-4">
-						<li className="col-span-1 flex rounded-md shadow-sm ">
-							<div className="flex flex-1 items-start justify-between truncate rounded-md border border-border bg-card">
-								<div className="flex-1 truncate px-4 py-2 text-sm">
-									<h2 className="mb-1 text-sm font-medium text-muted-foreground">Highest spent</h2>
-									{topSpentCategory.length > 0 ? (
-										topSpentCategory.map((category, index) => (
-											<p className="text-muted-foreground" key={index}>
-												{category}
-											</p>
-										))
-									) : (
-										<p className="mt-1 text-muted-foreground">No data available</p>
-									)}
-								</div>
-							</div>
-						</li>
-						<li className="col-span-1 flex rounded-md shadow-sm ">
-							<div className="flex flex-1 items-start justify-between truncate rounded-md border border-border bg-card">
-								<div className="flex-1 truncate px-4 py-2 text-sm">
-									<h2 className="mb-1 text-sm font-medium text-muted-foreground">Lowest spent</h2>
-									{LowestSpentCategory.length > 0 ? (
-										LowestSpentCategory.map((category, index) => (
-											<p className="text-muted-foreground" key={index}>
-												{category}
-											</p>
-										))
-									) : (
-										<p className="text-muted-foreground">No data available</p>
-									)}
-								</div>
-							</div>
-						</li>
-						<li className="col-span-1 flex rounded-md shadow-sm">
-							<div className="flex flex-1 items-start justify-between truncate rounded-md border border-border bg-card">
-								<div className="flex-1 truncate px-4 py-2 text-sm">
-									<h2 className="mb-1 text-sm font-medium text-muted-foreground">Most frequent</h2>
-									{mostFrequent.length > 0 ? (
-										mostFrequent.map((category, index) => (
-											<p className="text-muted-foreground" key={index}>
-												{category}
-											</p>
-										))
-									) : (
-										<p className="text-muted-foreground">No data available</p>
-									)}
-								</div>
-							</div>
-						</li>
-						<li className="col-span-1 flex rounded-md shadow-sm">
-							<div className="flex flex-1 items-start justify-between truncate rounded-md border border-border bg-card">
-								<div className="flex-1 truncate px-4 py-2 text-sm">
-									<h2 className="mb-1 text-sm font-medium text-muted-foreground">Least frequent</h2>
-									{leastFrequent.length > 0 ? (
-										leastFrequent.map((category, index) => (
-											<p className="text-muted-foreground" key={index}>
-												{category}
-											</p>
-										))
-									) : (
-										<p className="text-muted-foreground">No data available</p>
-									)}
-								</div>
-							</div>
-						</li>
+						<InfoCard title="Highest spent" items={topSpentCategory} />
+						<InfoCard title="Lowest spent" items={LowestSpentCategory} />
+						<InfoCard title="Most frequent" items={mostFrequent} />
+						<InfoCard title="Least frequent" items={leastFrequent} />
 					</ul>
 				</>
 			)}
