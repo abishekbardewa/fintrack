@@ -1,33 +1,38 @@
 import { axiosPrivate } from './axios.service';
+import { AxiosResponse } from 'axios';
+import type { ExpenseResponse, PaginatedExpenseResponse, ChartResponse, InsightsResponse, ExpenseData } from '../types/api.types';
+
 const API_URL = '/expense';
 
-export const getExpenses = async (year: any, month: any) => {
-	const response = await axiosPrivate.get(`${API_URL}/get-expense?year=${year}&month=${month}`);
-	return response;
-};
-export const getPaginatedExpense = async (page: any = 1, limit: any = 10, year: any, month: any) => {
-	const response = await axiosPrivate.get(`${API_URL}/get-paginated-expense?year=${year}&month=${month}&page=${page}&limit=${limit}`);
-	return response;
-};
-export const getCurrentMonthChart = async (year: any, month: any) => {
-	const response = await axiosPrivate.get(`${API_URL}/month-chart/${year}/${month}`);
-	return response;
-};
-export const getCurrentMonthInsights = async () => {
-	const response = await axiosPrivate.get(`${API_URL}/monthly-insights`);
-	return response;
+export const getExpenses = async (year: number, month: number): Promise<AxiosResponse<ExpenseResponse>> => {
+	return axiosPrivate.get(`${API_URL}/get-expense?year=${year}&month=${month}`);
 };
 
-export const addExpense = async (data: any) => {
-	const response = await axiosPrivate.post(`${API_URL}/add-expense`, data);
-	return response;
+export const getPaginatedExpense = async (
+	page: number = 1,
+	limit: number = 10,
+	year: number,
+	month: number,
+): Promise<AxiosResponse<PaginatedExpenseResponse>> => {
+	return axiosPrivate.get(`${API_URL}/get-paginated-expense?year=${year}&month=${month}&page=${page}&limit=${limit}`);
 };
 
-export const deleteExpense = async (expenseId) => {
-	const response = await axiosPrivate.delete(`${API_URL}/delete-expense/${expenseId}`);
-	return response;
+export const getCurrentMonthChart = async (year: number, month: number): Promise<AxiosResponse<ChartResponse>> => {
+	return axiosPrivate.get(`${API_URL}/month-chart/${year}/${month}`);
 };
-export const editExpense = async (expenseId, updatedData) => {
-	const response = await axiosPrivate.put(`${API_URL}/edit-expense/${expenseId}`, updatedData);
-	return response;
+
+export const getCurrentMonthInsights = async (): Promise<AxiosResponse<InsightsResponse>> => {
+	return axiosPrivate.get(`${API_URL}/monthly-insights`);
+};
+
+export const addExpense = async (data: ExpenseData): Promise<AxiosResponse> => {
+	return axiosPrivate.post(`${API_URL}/add-expense`, data);
+};
+
+export const deleteExpense = async (expenseId: string): Promise<AxiosResponse> => {
+	return axiosPrivate.delete(`${API_URL}/delete-expense/${expenseId}`);
+};
+
+export const editExpense = async (expenseId: string, updatedData: Partial<ExpenseData>): Promise<AxiosResponse> => {
+	return axiosPrivate.put(`${API_URL}/edit-expense/${expenseId}`, updatedData);
 };
