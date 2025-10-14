@@ -6,7 +6,12 @@ import FormActions from './common/FormActions';
 import { useExpenseContext } from './context/ExpenseProvider';
 import { formatDateToUTC } from '../utils';
 
-const EditExpenseModal: React.FC<any> = ({ category, closeModal }: any) => {
+interface EditExpenseModalProps {
+	category: { _id: string; category: string; amount: string; date: string; description: string };
+	closeModal: () => void;
+}
+
+const EditExpenseModal: React.FC<EditExpenseModalProps> = ({ category, closeModal }) => {
 	const [amount, setAmount] = useState<string>('');
 	const [date, setDate] = useState<string>('');
 	const [description, setDescription] = useState<string>('');

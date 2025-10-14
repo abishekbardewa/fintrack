@@ -4,7 +4,11 @@ import InputField from './common/InputField';
 import FormActions from './common/FormActions';
 import { useExpenseContext } from './context/ExpenseProvider';
 
-const AddCategoryModal: React.FC<any> = ({ onClose }) => {
+interface AddCategoryModalProps {
+	onClose: () => void;
+}
+
+const AddCategoryModal: React.FC<AddCategoryModalProps> = ({ onClose }) => {
 	const [newCategory, setNewCategory] = useState<string>('');
 	const [error, setError] = useState<{ newCategory?: string }>({});
 	const { loading, handleAddCategory } = useExpenseContext();

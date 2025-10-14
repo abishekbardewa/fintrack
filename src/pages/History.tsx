@@ -59,7 +59,7 @@ const History: React.FC = () => {
 			setTotalSpentData(totalSpentChart);
 			setInsights(insights);
 		} catch (error) {
-			console.log(error);
+			// Error already handled by axios interceptor
 		} finally {
 			setLoading(false);
 		}

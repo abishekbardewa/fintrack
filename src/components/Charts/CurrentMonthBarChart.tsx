@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, memo } from 'react';
 import { Doughnut } from 'react-chartjs-2';
 import { useExpenseContext } from '../context/ExpenseProvider';
 import ChartContainer from '../common/ChartContainer';
@@ -46,4 +46,4 @@ const CurrentMonthBarChart: React.FC = () => {
 	);
 };
 
-export default CurrentMonthBarChart;
+export default memo(CurrentMonthBarChart);

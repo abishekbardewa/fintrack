@@ -1,8 +1,8 @@
+import React, { useEffect, useState, memo } from 'react';
 import { useExpenseContext } from './context/ExpenseProvider';
 import EmptyState from './common/EmptyState';
 import SectionHeader from './common/SectionHeader';
 import { FaPenToSquare, FaTrash } from 'react-icons/fa6';
-import { useEffect, useState } from 'react';
 import ConfirmModal from './common/ConfirmModal';
 import { MdOutlineCancel } from 'react-icons/md';
 import EditExpenseModal from './EditExpenseModal';
@@ -10,34 +10,46 @@ import { formatCurrency, formatDate } from '../utils';
 import Loader from './common/Loader';
 import Pagination from './common/Pagination';
 
+interface ExpenseRecord {
+	_id: string;
+	category: string;
+	amount: number;
+	date: string;
+	description?: string;
+}
+
 const ExpenseTable: React.FC = () => {
 	const { loading, paginationLoading, expenses, handleDeleteExpense, totalCount, paginatedExpenses, fetchPaginatedExpenses } = useExpenseContext();
 	const [showModal, setShowModal] = useState(false);
 	const [showEditModal, setShowEditModal] = useState(false);
-	const [selectedRecord, setSelectedRecord] = useState<any>({});
+	const [selectedRecord, setSelectedRecord] = useState<ExpenseRecord | null>(null);
 	const [page, setPage] = useState(1);
 	const limit = 10;
+
 	useEffect(() => {
 		fetchPaginatedExpenses(page, limit);
 	}, [page]);
-	const handleDelete = (record: any) => {
+
+	const handleDelete = (record: ExpenseRecord) => {
 		setSelectedRecord(record);
 		setShowModal(true);
 	};
 
 	const handleConfirm = async () => {
-		await handleDeleteExpense(selectedRecord._id);
-		setShowModal(false);
-		setSelectedRecord({});
+		if (selectedRecord) {
+			await handleDeleteExpense(selectedRecord._id);
+			setShowModal(false);
+			setSelectedRecord(null);
+		}
 	};
-	const handleEdit = (record: any) => {
+
+	const handleEdit = (record: ExpenseRecord) => {
 		setSelectedRecord(record);
 		setShowEditModal(true);
 	};
 
 	if (loading) {
-		return;
-		// return <Loader />;
+		return null;
 	}
 
 	return (
@@ -116,4 +128,4 @@ const ExpenseTable: React.FC = () => {
 	);
 };
 
-export default ExpenseTable;
+export default memo(ExpenseTable);

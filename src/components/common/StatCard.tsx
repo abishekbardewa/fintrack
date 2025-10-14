@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import Card from './Card';
 
 interface StatCardProps {
@@ -34,4 +34,4 @@ const StatCard: React.FC<StatCardProps> = ({ label, value, icon, trend, size = '
 	);
 };
 
-export default StatCard;
+export default memo(StatCard);

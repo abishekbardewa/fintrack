@@ -1,7 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { LuLoader2 } from 'react-icons/lu';
 
-const ConfirmModal: React.FC<any> = ({
+interface ConfirmModalProps {
+	modalId: string;
+	title: string;
+	subtitle?: string;
+	message: string;
+	confirmText: string;
+	cancelText?: string;
+	onConfirm: () => void;
+	onCancel?: () => void;
+	confirmDisabled?: boolean;
+	cancelDisabled?: boolean;
+	btnClass?: string;
+	icon?: React.ReactNode;
+	isBtn?: boolean;
+}
+
+const ConfirmModal: React.FC<ConfirmModalProps> = ({
 	modalId,
 	title,
 	subtitle,
@@ -10,9 +26,9 @@ const ConfirmModal: React.FC<any> = ({
 	cancelText,
 	onConfirm,
 	onCancel,
-	confirmDisabled,
-	cancelDisabled,
-	btnClass,
+	confirmDisabled = false,
+	cancelDisabled = false,
+	btnClass = '',
 	icon,
 	isBtn = true,
 }) => {

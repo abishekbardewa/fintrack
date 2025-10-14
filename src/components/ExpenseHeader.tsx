@@ -1,3 +1,4 @@
+import React, { memo } from 'react';
 import { LuLoader2 } from 'react-icons/lu';
 import { formatCurrency } from '../utils';
 import { useExpenseContext } from './context/ExpenseProvider';
@@ -33,4 +34,4 @@ const ExpenseHeader: React.FC = () => {
 	);
 };
 
-export default ExpenseHeader;
+export default memo(ExpenseHeader);

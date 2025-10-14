@@ -1,6 +1,14 @@
-import React from 'react';
+import React, { memo } from 'react';
 
-const Pagination = ({ totalCount, page, limit, onPageChange, pageClass }) => {
+interface PaginationProps {
+	totalCount: number;
+	page: number;
+	limit: number;
+	onPageChange: (page: number) => void;
+	pageClass?: string;
+}
+
+const Pagination: React.FC<PaginationProps> = ({ totalCount, page, limit, onPageChange, pageClass = '' }) => {
 	const totalPages = Math.ceil(totalCount / limit);
 	if (totalPages <= 1) return null;
 	const getPageNumbers = () => {
@@ -101,4 +109,4 @@ const Pagination = ({ totalCount, page, limit, onPageChange, pageClass }) => {
 	);
 };
 
-export default Pagination;
+export default memo(Pagination);

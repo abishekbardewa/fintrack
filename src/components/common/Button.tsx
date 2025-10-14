@@ -1,17 +1,31 @@
 import React from 'react';
 import { LuLoader2 } from 'react-icons/lu';
 
-const Button: React.FC<any> = ({
+interface ButtonProps {
+	size?: 'sm' | 'md' | 'lg' | 'noPadding';
+	startIcon?: React.ReactNode;
+	endIcon?: React.ReactNode;
+	buttonType?: 'button' | 'submit' | 'reset';
+	disabled?: boolean;
+	innerClass?: string;
+	innerTextClass?: string;
+	variant?: 'filled' | 'outline' | 'error';
+	loading?: boolean;
+	onClick?: () => void;
+	children: React.ReactNode;
+}
+
+const Button: React.FC<ButtonProps> = ({
 	size = 'md',
-	startIcon = '',
-	endIcon = '',
+	startIcon,
+	endIcon,
 	buttonType = 'button',
 	disabled = false,
 	innerClass = '',
 	innerTextClass = '',
 	variant = 'filled',
 	loading = false,
-	onClick = () => {},
+	onClick,
 	children,
 }) => {
 	const getVariantClass = () => {

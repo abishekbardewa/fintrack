@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 
 interface InfoCardProps {
 	title: string;
@@ -28,4 +28,4 @@ const InfoCard: React.FC<InfoCardProps> = ({ title, items, emptyMessage = 'No da
 	);
 };
 
-export default InfoCard;
+export default memo(InfoCard);

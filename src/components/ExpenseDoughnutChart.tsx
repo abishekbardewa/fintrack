@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, memo } from 'react';
 import { Doughnut } from 'react-chartjs-2';
 import 'chart.js/auto';
 import { useExpenseContext } from './context/ExpenseProvider';
@@ -41,4 +41,4 @@ const ExpenseDoughnutChart: React.FC = () => {
 	);
 };
 
-export default ExpenseDoughnutChart;
+export default memo(ExpenseDoughnutChart);

@@ -1,4 +1,4 @@
-const Footer: React.FC<any> = () => {
+const Footer: React.FC = () => {
 	const currentYear = new Date().getFullYear();
 	return (
 		<footer className="bg-card">

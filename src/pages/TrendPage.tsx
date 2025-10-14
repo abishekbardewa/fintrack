@@ -95,7 +95,7 @@ const TrendPage: React.FC = () => {
 			setTotalSpentChart(chart);
 			setInsights(insights);
 		} catch (error) {
-			console.log(error);
+			// Error already handled by axios interceptor
 		} finally {
 			setLoading(false);
 		}
@@ -116,7 +116,7 @@ const TrendPage: React.FC = () => {
 			if (!selectedCategory) setSelectedCategory(data.data[0]);
 			if (!compareCategory) setCompareCategory(data.data[1]);
 		} catch (error) {
-			console.log(error);
+			// Error already handled by axios interceptor
 		} finally {
 			setCategoryLoading(false);
 		}

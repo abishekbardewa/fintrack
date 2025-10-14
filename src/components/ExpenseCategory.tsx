@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState, memo } from 'react';
 import CategoryButton from './common/CategoryButton';
 import Button from './common/Button';
 import SectionHeader from './common/SectionHeader';
@@ -37,8 +37,7 @@ const ExpenseCategory: React.FC = () => {
 	};
 
 	if (loading) {
-		// return <Loader />;
-		return;
+		return null;
 	}
 
 	return (
@@ -61,8 +60,7 @@ const ExpenseCategory: React.FC = () => {
 			/>
 			<ul role="list" className="h-[500px] overflow-y-auto scrollbar-hidden">
 				{categories.map((data) => (
-					<li key={data.category?._id} className=" flex justify-between gap-x-6 py-3 hover:bg-muted ">
-						{/* <div className=" flex justify-between gap-x-6 py-3 "> */}
+					<li key={data.category?._id} className="flex justify-between gap-x-6 py-3 hover:bg-muted">
 						<div className="flex min-w-0 gap-x-4">
 							<div className="min-w-0 flex-auto">
 								<p className="text-sm font-semibold leading-6 text-foreground">{data.category.name}</p>
@@ -75,12 +73,6 @@ const ExpenseCategory: React.FC = () => {
 								<FaTrash className="h-5 w-5 text-destructive" />
 							</div>
 						</div>
-						{/* </div> */}
-						{/* <div>
-							<div className="overflow-hidden rounded-full bg-gray-100">
-								<div className="h-2 rounded-full bg-primary" style={{ width: data.percentage }}></div>
-							</div>
-						</div> */}
 					</li>
 				))}
 			</ul>
@@ -106,4 +98,4 @@ const ExpenseCategory: React.FC = () => {
 	);
 };
 
-export default ExpenseCategory;
+export default memo(ExpenseCategory);

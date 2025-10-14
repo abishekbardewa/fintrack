@@ -8,16 +8,12 @@ import WarningInsights from './WarningsInsight';
 import TabButton from './common/TabButton';
 
 const Insights: React.FC = () => {
-	useEffect(() => {
-		console.log('Insights loaded');
-	}, []);
 	const { loading } = useExpenseContext();
 
 	const [selectedTab, setSelectedTab] = useState<string>('insights');
 
 	if (loading) {
-		// return <Loader />;
-		return;
+		return null;
 	}
 	return (
 		<div>

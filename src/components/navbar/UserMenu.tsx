@@ -17,7 +17,7 @@ export default function UserMenu() {
 			dispatch(clearUser());
 			navigate('/');
 		} catch (err) {
-			console.log(err);
+			// Silent fail - logout should always succeed locally
 		}
 	};
 
