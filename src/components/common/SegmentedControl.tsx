@@ -21,7 +21,7 @@ const SegmentedControl: React.FC<SegmentedControlProps> = ({ options, selectedVa
 					type="button"
 					className={`
 						relative px-4 py-2 text-sm font-medium rounded-md transition-all duration-200 ease-in-out
-						${selectedValue === option.value ? 'bg-card text-foreground shadow-sm' : 'text-muted-foreground hover:text-foreground'}
+						${selectedValue === option.value ? 'bg-background text-foreground shadow-sm' : 'text-muted-foreground hover:text-foreground'}
 					`}
 					onClick={() => onChange(option.value)}
 					aria-pressed={selectedValue === option.value}
