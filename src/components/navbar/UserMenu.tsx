@@ -90,8 +90,8 @@ export default function UserMenu() {
 						<MenuLink to="/trend">
 							<li className="md:hidden flex cursor-pointer items-center gap-3 px-4 py-2 hover:bg-muted">Trend</li>
 						</MenuLink>
-						<li className="flex cursor-pointer items-center gap-3 p-4 hover:bg-muted" onClick={handleLogout}>
-							<FaArrowRightFromBracket className="text-base-secondary-text" />
+						<li className="flex cursor-pointer items-center gap-3 p-4 hover:bg-muted text-foreground" onClick={handleLogout}>
+							<FaArrowRightFromBracket className="text-foreground" />
 							Logout
 						</li>
 					</ul>

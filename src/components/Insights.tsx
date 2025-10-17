@@ -16,7 +16,7 @@ const Insights: React.FC = () => {
 		return (
 			<div>
 				<SectionHeader title="Key Insights" />
-				<div className="h-[500px] px-5 py-4 pb-2 bg-card rounded-[16px]">
+				<div className="h-[500px] px-5 py-4 pb-2 bg-card border border-border  rounded-[16px]">
 					{/* Tab skeleton */}
 					<div className="flex mb-4">
 						{Array.from({ length: 3 }).map((_, index) => (
@@ -40,7 +40,7 @@ const Insights: React.FC = () => {
 	return (
 		<div>
 			<SectionHeader title="Key Insights" />
-			<div className="h-[500px] px-5 py-4 pb-2 bg-card rounded-[16px]">
+			<div className="h-[500px] px-5 py-4 pb-2 bg-card border border-border rounded-[16px]">
 				<ul className="flex overflow-y-auto md:mb-4">
 					<li className="me-2">
 						<TabButton

@@ -279,10 +279,10 @@ const History: React.FC = () => {
 
 											<div>
 												<h2 className="text-2xl font-semibold leading-6 text-foreground mb-5">{expDetails.month} Entries</h2>
-												<div className="min-w-full align-middle  rounded-[16px] bg-white h-[500px] overflow-y-auto overflow-x-auto scrollbar-hidden">
+												<div className="min-w-full align-middle  rounded-[16px] bg-white h-[500px] overflow-y-auto overflow-x-auto scrollbar-hidden border border-border">
 													{expDetails.expensesEntries && expDetails.expensesEntries.length > 0 ? (
-														<table className="min-w-full divide-y divide-gray-300">
-															<thead className="bg-muted">
+														<table className="min-w-full divide-y divide-border">
+															<thead className="bg-card">
 																<tr>
 																	<th scope="col" className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-foreground">
 																		Category
@@ -298,7 +298,7 @@ const History: React.FC = () => {
 																</th> */}
 																</tr>
 															</thead>
-															<tbody className="divide-y divide-gray-200 bg-white">
+															<tbody className="divide-y divide-border bg-background">
 																{expDetails.expensesEntries.map((entry, idx) => (
 																	<tr key={`${entry?._id}-${idx}`}>
 																		<td className="py-4 pl-4 pr-3 text-sm font-medium text-foreground">

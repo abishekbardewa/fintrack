@@ -14,9 +14,9 @@ const ExpenseEntriesTable: React.FC<{ monthlyExpense: any[] }> = ({ monthlyExpen
 						<div className="h-[300px] mb-4">
 							<Doughnut data={expDetails.chart} options={{ responsive: true, maintainAspectRatio: false }} />
 						</div>
-						<div className="overflow-x-auto">
+						<div className="overflow-x-auto border border-border">
 							<table className="min-w-full divide-y divide-border">
-								<thead className="bg-muted">
+								<thead className="bg-card">
 									<tr>
 										<th className="px-3 py-2 text-left text-sm font-semibold text-foreground">Category</th>
 										<th className="px-3 py-2 text-left text-sm font-semibold text-foreground">Added date</th>

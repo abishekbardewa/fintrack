@@ -55,7 +55,7 @@ const ExpenseTable: React.FC = () => {
 	return (
 		<div>
 			<SectionHeader title="Expense Entries" />
-			<div className="min-w-full align-middle  bg-card rounded-[16px]  h-[500px] overflow-y-auto overflow-x-auto  scrollbar-hidden">
+			<div className="min-w-full align-middle  bg-card rounded-[16px]  h-[500px] overflow-y-auto overflow-x-auto  scrollbar-hidden border border-border">
 				{paginationLoading ? (
 					<div className="p-4">
 						{Array.from({ length: 8 }).map((_, index) => (
@@ -77,7 +77,7 @@ const ExpenseTable: React.FC = () => {
 					</div>
 				) : paginatedExpenses && paginatedExpenses.length > 0 ? (
 					<table className="min-w-full divide-y divide-border">
-						<thead className="bg-muted">
+						<thead className="bg-card">
 							<tr>
 								<th scope="col" className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-foreground">
 									Category
@@ -93,7 +93,7 @@ const ExpenseTable: React.FC = () => {
 								</th>
 							</tr>
 						</thead>
-						<tbody className="divide-y divide-border bg-white">
+						<tbody className="divide-y divide-border bg-background">
 							{paginatedExpenses.map((expense, idx) => (
 								<tr key={`${expense.category}-${idx}`}>
 									<td className="py-4 pl-4 pr-3 text-sm font-medium text-foreground">
