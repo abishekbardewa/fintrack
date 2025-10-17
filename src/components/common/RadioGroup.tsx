@@ -17,7 +17,7 @@ const RadioGroup: React.FC<RadioGroupProps> = ({ options, name, selectedOption, 
 	return (
 		<fieldset aria-label={`Choose a ${name} option`}>
 			<div className="flex items-center justify-between">
-				<div className="text-md font-medium leading-6 text-gray-900">Choose option to generate trends</div>
+				<div className="text-md font-medium leading-6 text-foreground">Choose option to generate trends</div>
 			</div>
 
 			<div className="mt-2 grid grid-cols-3 gap-3 sm:grid-cols-4 md:grid-cols-8 ">
@@ -28,8 +28,8 @@ const RadioGroup: React.FC<RadioGroupProps> = ({ options, name, selectedOption, 
 						key={option.value}
 						className={`flex cursor-pointer items-center justify-center rounded-md px-3 py-2 text-sm font-semibold whitespace-nowrap focus:outline-none sm:flex-1 ${
 							selectedOption === option.value
-								? 'ring-2 ring-gray-900 bg-gray-900 text-white'
-								: 'ring-1 ring-gray-300 bg-white text-gray-900 hover:bg-gray-50'
+								? 'ring-2 ring-primary bg-primary text-primary-foreground'
+								: 'ring-1 ring-border bg-card text-foreground hover:bg-muted'
 						}`}
 					>
 						<input

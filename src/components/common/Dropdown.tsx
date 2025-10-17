@@ -30,13 +30,13 @@ function Dropdown<T>({ label, options, selectedValue, onSelect, displayValue, ke
 
 	return (
 		<div ref={dropdownRef}>
-			<label id={`${label}-label`} className="block text-md font-medium leading-6 text-gray-900">
+			<label id={`${label}-label`} className="block text-md font-medium leading-6 text-foreground">
 				{label}
 			</label>
 			<div className="relative mt-1">
-				<button
-					type="button"
-					className="relative w-full cursor-default bg-white py-2 px-3 rounded-md text-left text-gray-900 shadow-sm ring-1 ring-gray-300 focus:outline-none focus:ring-1 focus:ring-green-500 sm:text-sm"
+				<div
+					role="button"
+					className="relative w-full cursor-default bg-background py-2 px-3 rounded-md text-left text-foreground shadow-sm ring-1 ring-border focus:outline-none focus:ring-2 focus:ring-primary sm:text-sm"
 					aria-haspopup="listbox"
 					aria-expanded={isOpen}
 					aria-labelledby={`${label}-label`}
@@ -44,7 +44,7 @@ function Dropdown<T>({ label, options, selectedValue, onSelect, displayValue, ke
 				>
 					<span className="block truncate">{selectedValue ? displayValue(selectedValue) : `${label}`}</span>
 					<span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
-						<svg className="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+						<svg className="h-5 w-5 text-muted-foreground" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
 							<path
 								fillRule="evenodd"
 								d="M10 3a.75.75 0 01.55.24l3.25 3.5a.75.75 0 11-1.1 1.02L10 4.852 7.3 7.76a.75.75 0 01-1.1-1.02l3.25-3.5A.75.75 0 0110 3zm-3.76 9.2a.75.75 0 011.06.04l2.7 2.908 2.7-2.908a.75.75 0 111.1 1.02l-3.25 3.5a.75.75 0 01-1.1 0l-3.25-3.5a.75.75 0 01.04-1.06z"
@@ -52,10 +52,10 @@ function Dropdown<T>({ label, options, selectedValue, onSelect, displayValue, ke
 							/>
 						</svg>
 					</span>
-				</button>
+				</div>
 				{isOpen && (
 					<ul
-						className="absolute z-10 max-h-52 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
+						className="absolute z-10 max-h-52 w-full overflow-auto rounded-md bg-background text-base shadow-lg ring-1 ring-border focus:outline-none sm:text-sm no-scrollbar"
 						tabIndex={-1}
 						role="listbox"
 						aria-labelledby={`${label}-label`}
@@ -63,7 +63,7 @@ function Dropdown<T>({ label, options, selectedValue, onSelect, displayValue, ke
 						{options.map((option) => (
 							<li
 								key={keyExtractor(option)}
-								className="text-gray-900 relative cursor-default select-none py-2 pl-8 pr-4 hover:bg-primary hover:text-white"
+								className="text-foreground relative cursor-default select-none py-2 pl-8 pr-4 hover:bg-primary hover:text-primary-foreground"
 								role="option"
 								onClick={() => {
 									onSelect(option);
@@ -72,7 +72,7 @@ function Dropdown<T>({ label, options, selectedValue, onSelect, displayValue, ke
 							>
 								<span className="font-normal block truncate">{displayValue(option)}</span>
 								{selectedValue === option && (
-									<span className="text-gray-900 absolute inset-y-0 left-0 flex items-center pl-1.5 hover:text-white">
+									<span className="text-foreground absolute inset-y-0 left-0 flex items-center pl-1.5 hover:text-primary-foreground">
 										<svg className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
 											<path
 												fillRule="evenodd"

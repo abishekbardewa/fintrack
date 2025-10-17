@@ -1,9 +1,8 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState, useMemo, useCallback } from 'react';
 import {
 	addExpense,
 	deleteExpense,
 	editExpense,
-	// getCategories,
 	getCurrentMonthChart,
 	getCurrentMonthInsights,
 	getExpenses,
@@ -43,20 +42,24 @@ export const ExpenseProvider = ({ children }: { children: React.ReactNode }) => 
 		fetchCurrentMonthlInsights();
 	}, []);
 
-	const fetchPaginatedExpenses = async (page: any = 1, limit = 10) => {
-		setPaginationLoading(true);
-		try {
-			const { data: paginatedExpenseResponse } = await getPaginatedExpense(page, limit, selectedYear, selectedMonth);
-			console.log('paginatedExpenseResponse', paginatedExpenseResponse);
-			setPaginatedExpense(paginatedExpenseResponse.data.expenses);
-			setTotalCount(paginatedExpenseResponse.data.total);
-		} catch (error) {
-			toast.error('Failed to fetch paginated expenses');
-		} finally {
-			setPaginationLoading(false);
-		}
-	};
-	const fetchExpenses = async () => {
+	const fetchPaginatedExpenses = useCallback(
+		async (page: any = 1, limit = 10) => {
+			setPaginationLoading(true);
+			try {
+				const { data: paginatedExpenseResponse } = await getPaginatedExpense(page, limit, selectedYear, selectedMonth);
+				setPaginatedExpense(paginatedExpenseResponse.data.expenses);
+				setTotalCount(paginatedExpenseResponse.data.total);
+			} catch (error: any) {
+				const errorMessage = error?.response?.data?.msg || 'Failed to fetch expenses. Please try again.';
+				toast.error(errorMessage);
+			} finally {
+				setPaginationLoading(false);
+			}
+		},
+		[selectedYear, selectedMonth],
+	);
+
+	const fetchExpenses = useCallback(async () => {
 		setLoading(true);
 		try {
 			const { data: expenseResponse } = await getExpenses(selectedYear, selectedMonth);
@@ -72,14 +75,15 @@ export const ExpenseProvider = ({ children }: { children: React.ReactNode }) => 
 
 			setMostFrequent(expenseResponse.data.categoryWithHighestTransaction);
 			setLeastFrequent(expenseResponse.data.categoryWithLowestTransaction);
-		} catch (error) {
-			toast.error('Failed to fetch expenses');
+		} catch (error: any) {
+			const errorMessage = error?.response?.data?.msg || 'Failed to load expense data. Please refresh the page.';
+			toast.error(errorMessage);
 		} finally {
 			setLoading(false);
 		}
-	};
+	}, [selectedYear, selectedMonth]);
 
-	const fetchCurrentMonthlChart = async () => {
+	const fetchCurrentMonthlChart = useCallback(async () => {
 		setLoading(true);
 		try {
 			const { data: chartResponse } = await getCurrentMonthChart(selectedYear, selectedMonth);
@@ -88,141 +92,188 @@ export const ExpenseProvider = ({ children }: { children: React.ReactNode }) => 
 				labels: chartResponse.data.labels,
 				datasets: chartResponse.data.datasets,
 			});
-		} catch (error) {
-			toast.error('Failed to fetch monthly chart');
+		} catch (error: any) {
+			const errorMessage = error?.response?.data?.msg || 'Failed to load chart data. Please try again.';
+			toast.error(errorMessage);
 		} finally {
 			setLoading(false);
 		}
-	};
-	const fetchCurrentMonthlInsights = async () => {
+	}, [selectedYear, selectedMonth]);
+
+	const fetchCurrentMonthlInsights = useCallback(async () => {
 		setLoading(true);
 		try {
 			const { data: insightsResponse } = await getCurrentMonthInsights();
 			setMonthlyInsights(insightsResponse.data.monthlyInsights);
 			setOverallImprovement(insightsResponse.data.overallImprovement);
 			setOverallWarnings(insightsResponse.data.overallWarnings);
-		} catch (error) {
-			toast.error('Failed to fetch monthly insights');
+		} catch (error: any) {
+			const errorMessage = error?.response?.data?.msg || 'Failed to load insights. Please try again.';
+			toast.error(errorMessage);
 		} finally {
 			setLoading(false);
 		}
-	};
+	}, []);
 
-	const handleAddCategory = async (categoryData) => {
-		const categoryExists = categories.some((category) => category?.category.name?.toLowerCase() === categoryData.categoryName?.toLowerCase());
+	const handleAddCategory = useCallback(
+		async (categoryData) => {
+			const categoryExists = categories.some((category) => category?.category.name?.toLowerCase() === categoryData.categoryName?.toLowerCase());
 
-		if (categoryExists) {
-			toast.error('Category already exists!');
-			return;
-		}
+			if (categoryExists) {
+				toast.error('Category already exists!');
+				return;
+			}
 
-		setLoading(true);
-		try {
-			await addCategory(categoryData);
-			toast.success('Category added successfully');
-			fetchExpenses();
-			fetchCurrentMonthlChart();
-			fetchCurrentMonthlInsights();
-		} catch (error) {
-			toast.error('Failed to add category');
-		} finally {
-			setLoading(false);
-		}
-	};
-
-	const handleDeleteCategory = async (categoryData) => {
-		setLoading(true);
-		try {
-			await deleteCategory(categoryData);
-			toast.success('Category deleted successfully');
-			fetchExpenses();
-			fetchCurrentMonthlChart();
-			fetchCurrentMonthlInsights();
-		} catch (error) {
-			toast.error('Failed to delete category');
-		} finally {
-			setLoading(false);
-		}
-	};
-
-	const handleAddExpense = async (expenseData) => {
-		setLoading(true);
-		try {
-			await addExpense(expenseData);
-			toast.success('Expense added successfully');
-			fetchExpenses();
-			fetchCurrentMonthlChart();
-			fetchCurrentMonthlInsights();
-			fetchPaginatedExpenses();
-		} catch (error) {
-			toast.error('Failed to add expense');
-		} finally {
-			setLoading(false);
-		}
-	};
-
-	const handleDeleteExpense = async (expenseId) => {
-		setLoading(true);
-		try {
-			await deleteExpense(expenseId);
-			toast.success('Expense deleted successfully');
-			fetchExpenses();
-			fetchCurrentMonthlChart();
-			fetchCurrentMonthlInsights();
-			fetchPaginatedExpenses();
-		} catch (error) {
-			toast.error('Failed to delete expense');
-		} finally {
-			setLoading(false);
-		}
-	};
-
-	const handleEditExpense = async (expenseId, updatedData) => {
-		setLoading(true);
-
-		try {
-			await editExpense(expenseId, updatedData);
-			toast.success('Expense updated successfully');
-			fetchExpenses();
-			fetchCurrentMonthlChart();
-			fetchCurrentMonthlInsights();
-			fetchPaginatedExpenses();
-		} catch (error) {
-			toast.error('Failed to update expense');
-		} finally {
-			setLoading(false);
-		}
-	};
-
-	return (
-		<ExpenseContext.Provider
-			value={{
-				loading,
-				expenses,
-				categories,
-				chartData,
-				totalAmount,
-				totalAmountToday,
-				newCategory,
-				topSpentCategory,
-				LowestSpentCategory,
-				mostFrequent,
-				leastFrequent,
-				monthlyInsights,
-				overallImprovement,
-				overallWarnings,
-				totalCount,
-				paginatedExpenses,
-				paginationLoading,
-				handleAddCategory,
-				handleDeleteCategory,
-				handleAddExpense,
-				handleDeleteExpense,
-				handleEditExpense,
-				fetchPaginatedExpenses,
-			}}
-		>
-			{children}
-		</ExpenseContext.Provider>
+			setLoading(true);
+			try {
+				await addCategory(categoryData);
+				toast.success('Category added successfully');
+				fetchExpenses();
+				fetchCurrentMonthlChart();
+				fetchCurrentMonthlInsights();
+			} catch (error: any) {
+				const errorMessage = error?.response?.data?.msg || 'Failed to add category. Please try again.';
+				toast.error(errorMessage);
+			} finally {
+				setLoading(false);
+			}
+		},
+		[categories, fetchExpenses, fetchCurrentMonthlChart, fetchCurrentMonthlInsights],
 	);
+
+	const handleDeleteCategory = useCallback(
+		async (categoryData) => {
+			setLoading(true);
+			try {
+				await deleteCategory(categoryData);
+				toast.success('Category deleted successfully');
+				fetchExpenses();
+				fetchCurrentMonthlChart();
+				fetchCurrentMonthlInsights();
+			} catch (error: any) {
+				const errorMessage = error?.response?.data?.msg || 'Failed to delete category. Please try again.';
+				toast.error(errorMessage);
+			} finally {
+				setLoading(false);
+			}
+		},
+		[fetchExpenses, fetchCurrentMonthlChart, fetchCurrentMonthlInsights],
+	);
+
+	const handleAddExpense = useCallback(
+		async (expenseData) => {
+			setLoading(true);
+			try {
+				await addExpense(expenseData);
+				toast.success('Expense added successfully');
+				fetchExpenses();
+				fetchCurrentMonthlChart();
+				fetchCurrentMonthlInsights();
+				fetchPaginatedExpenses();
+			} catch (error: any) {
+				const errorMessage = error?.response?.data?.msg || 'Failed to add expense. Please try again.';
+				toast.error(errorMessage);
+			} finally {
+				setLoading(false);
+			}
+		},
+		[fetchExpenses, fetchCurrentMonthlChart, fetchCurrentMonthlInsights, fetchPaginatedExpenses],
+	);
+
+	const handleDeleteExpense = useCallback(
+		async (expenseId) => {
+			setLoading(true);
+			try {
+				await deleteExpense(expenseId);
+				toast.success('Expense deleted successfully');
+				fetchExpenses();
+				fetchCurrentMonthlChart();
+				fetchCurrentMonthlInsights();
+				fetchPaginatedExpenses();
+			} catch (error: any) {
+				const errorMessage = error?.response?.data?.msg || 'Failed to delete expense. Please try again.';
+				toast.error(errorMessage);
+			} finally {
+				setLoading(false);
+			}
+		},
+		[fetchExpenses, fetchCurrentMonthlChart, fetchCurrentMonthlInsights, fetchPaginatedExpenses],
+	);
+
+	const handleEditExpense = useCallback(
+		async (expenseId, updatedData) => {
+			setLoading(true);
+
+			try {
+				await editExpense(expenseId, updatedData);
+				toast.success('Expense updated successfully');
+				fetchExpenses();
+				fetchCurrentMonthlChart();
+				fetchCurrentMonthlInsights();
+				fetchPaginatedExpenses();
+			} catch (error: any) {
+				const errorMessage = error?.response?.data?.msg || 'Failed to update expense. Please try again.';
+				toast.error(errorMessage);
+			} finally {
+				setLoading(false);
+			}
+		},
+		[fetchExpenses, fetchCurrentMonthlChart, fetchCurrentMonthlInsights, fetchPaginatedExpenses],
+	);
+
+	// Memoize context value to prevent unnecessary re-renders
+	const contextValue = useMemo(
+		() => ({
+			loading,
+			expenses,
+			categories,
+			chartData,
+			totalAmount,
+			totalAmountToday,
+			newCategory,
+			topSpentCategory,
+			LowestSpentCategory,
+			mostFrequent,
+			leastFrequent,
+			monthlyInsights,
+			overallImprovement,
+			overallWarnings,
+			totalCount,
+			paginatedExpenses,
+			paginationLoading,
+			handleAddCategory,
+			handleDeleteCategory,
+			handleAddExpense,
+			handleDeleteExpense,
+			handleEditExpense,
+			fetchPaginatedExpenses,
+		}),
+		[
+			loading,
+			expenses,
+			categories,
+			chartData,
+			totalAmount,
+			totalAmountToday,
+			newCategory,
+			topSpentCategory,
+			LowestSpentCategory,
+			mostFrequent,
+			leastFrequent,
+			monthlyInsights,
+			overallImprovement,
+			overallWarnings,
+			totalCount,
+			paginatedExpenses,
+			paginationLoading,
+			handleAddCategory,
+			handleDeleteCategory,
+			handleAddExpense,
+			handleDeleteExpense,
+			handleEditExpense,
+			fetchPaginatedExpenses,
+		],
+	);
+
+	return <ExpenseContext.Provider value={contextValue}>{children}</ExpenseContext.Provider>;
 };

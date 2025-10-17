@@ -1,28 +1,46 @@
 import { useEffect, useState } from 'react';
-import Loader from './common/Loader';
+import SectionHeader from './common/SectionHeader';
 import { useExpenseContext } from './context/ExpenseProvider';
 import MonthlyInsights from './MonthlyInsights';
 import ImprovementInsights from './ImprovementInsights';
 import WarningInsights from './WarningsInsight';
 import TabButton from './common/TabButton';
+import { SkeletonLoader } from './common';
 
 const Insights: React.FC = () => {
-	useEffect(() => {
-		console.log('Insights loaded');
-	}, []);
 	const { loading } = useExpenseContext();
 
 	const [selectedTab, setSelectedTab] = useState<string>('insights');
 
 	if (loading) {
-		// return <Loader />;
-		return;
+		return (
+			<div>
+				<SectionHeader title="Key Insights" />
+				<div className="h-[500px] px-5 py-4 pb-2 bg-card border border-border  rounded-[16px]">
+					{/* Tab skeleton */}
+					<div className="flex mb-4">
+						{Array.from({ length: 3 }).map((_, index) => (
+							<SkeletonLoader key={index} variant="text" width="80px" height="32px" className="mr-2 rounded-md" />
+						))}
+					</div>
+
+					{/* Content skeleton */}
+					<div className="space-y-3">
+						{Array.from({ length: 8 }).map((_, index) => (
+							<div key={index} className="flex items-center justify-between">
+								<SkeletonLoader variant="text" width="70%" />
+								<SkeletonLoader variant="text" width="20%" />
+							</div>
+						))}
+					</div>
+				</div>
+			</div>
+		);
 	}
 	return (
 		<div>
-			<h2 className="text-2xl font-semibold leading-6 text-gray-900 mb-5">Key Insights</h2>
-
-			<div className="h-[500px] px-5 py-4 pb-2 bg-white rounded-[16px]">
+			<SectionHeader title="Key Insights" />
+			<div className="h-[500px] px-5 py-4 pb-2 bg-card border border-border rounded-[16px]">
 				<ul className="flex overflow-y-auto md:mb-4">
 					<li className="me-2">
 						<TabButton
@@ -37,8 +55,8 @@ const Insights: React.FC = () => {
 						<TabButton
 							label="Improvements"
 							onClick={() => setSelectedTab('improvement')}
-							color="text-blue-600"
-							borderColor="border-blue-600"
+							color="text-secondary"
+							borderColor="border-secondary"
 							isSelected={selectedTab === 'improvement'}
 						/>
 					</li>
@@ -46,8 +64,8 @@ const Insights: React.FC = () => {
 						<TabButton
 							label="Warnings"
 							onClick={() => setSelectedTab('warnings')}
-							color="text-error-600"
-							borderColor="border-error-600"
+							color="text-destructive"
+							borderColor="border-destructive"
 							isSelected={selectedTab === 'warnings'}
 						/>
 					</li>

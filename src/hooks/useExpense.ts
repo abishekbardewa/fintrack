@@ -32,7 +32,7 @@ export const useExpense = (selectedYear, selectedMonth, selectedMonth2, isCompar
 			setTotalSpentData(totalSpentChart);
 			setInsights(insights);
 		} catch (error) {
-			console.error(error);
+			// Error already handled by axios interceptor
 		} finally {
 			setLoading(false);
 		}

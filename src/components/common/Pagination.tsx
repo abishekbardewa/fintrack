@@ -1,6 +1,14 @@
-import React from 'react';
+import React, { memo } from 'react';
 
-const Pagination = ({ totalCount, page, limit, onPageChange, pageClass }) => {
+interface PaginationProps {
+	totalCount: number;
+	page: number;
+	limit: number;
+	onPageChange: (page: number) => void;
+	pageClass?: string;
+}
+
+const Pagination: React.FC<PaginationProps> = ({ totalCount, page, limit, onPageChange, pageClass = '' }) => {
 	const totalPages = Math.ceil(totalCount / limit);
 	if (totalPages <= 1) return null;
 	const getPageNumbers = () => {
@@ -31,7 +39,7 @@ const Pagination = ({ totalCount, page, limit, onPageChange, pageClass }) => {
 				<button
 					onClick={() => onPageChange(page - 1)}
 					disabled={page === 1}
-					className={`relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 ${
+					className={`relative inline-flex items-center rounded-md border border-border bg-card px-4 py-2 text-sm font-medium text-foreground hover:bg-muted ${
 						page === 1 && 'cursor-not-allowed opacity-50'
 					}`}
 				>
@@ -40,7 +48,7 @@ const Pagination = ({ totalCount, page, limit, onPageChange, pageClass }) => {
 				<button
 					onClick={() => onPageChange(page + 1)}
 					disabled={page === totalPages}
-					className={`relative ml-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 ${
+					className={`relative ml-3 inline-flex items-center rounded-md border border-border bg-card px-4 py-2 text-sm font-medium text-foreground hover:bg-muted ${
 						page === totalPages && 'cursor-not-allowed opacity-50'
 					}`}
 				>
@@ -52,7 +60,7 @@ const Pagination = ({ totalCount, page, limit, onPageChange, pageClass }) => {
 					<button
 						onClick={() => onPageChange(page - 1)}
 						disabled={page === 1}
-						className={`relative inline-flex items-center rounded-l-md px-2 py-2 bg-white text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0 ${
+						className={`relative inline-flex items-center rounded-l-md px-2 py-2 bg-card text-muted-foreground ring-1 ring-inset ring-border hover:bg-muted focus:z-20 focus:outline-offset-0 ${
 							page === 1 && 'cursor-not-allowed opacity-50'
 						}`}
 					>
@@ -71,8 +79,8 @@ const Pagination = ({ totalCount, page, limit, onPageChange, pageClass }) => {
 							onClick={() => typeof pageNumber === 'number' && onPageChange(pageNumber)}
 							className={`relative inline-flex items-center px-4 py-2 text-sm font-semibold ${
 								pageNumber === page
-									? 'z-10 bg-primary text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'
-									: 'text-gray-900 ring-1 ring-inset ring-gray-300 bg-white hover:bg-gray-50 focus:z-20 focus:outline-offset-0'
+									? 'z-10 bg-primary text-primary-foreground focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary'
+									: 'text-foreground ring-1 ring-inset ring-border bg-card hover:bg-muted focus:z-20 focus:outline-offset-0'
 							}`}
 							disabled={pageNumber === '...'}
 						>
@@ -82,7 +90,7 @@ const Pagination = ({ totalCount, page, limit, onPageChange, pageClass }) => {
 					<button
 						onClick={() => onPageChange(page + 1)}
 						disabled={page === totalPages}
-						className={`relative inline-flex items-center rounded-r-md px-2 py-2 bg-white text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0 ${
+						className={`relative inline-flex items-center rounded-r-md px-2 py-2 bg-card text-muted-foreground ring-1 ring-inset ring-border hover:bg-muted focus:z-20 focus:outline-offset-0 ${
 							page === totalPages && 'cursor-not-allowed opacity-50'
 						}`}
 					>
@@ -101,4 +109,4 @@ const Pagination = ({ totalCount, page, limit, onPageChange, pageClass }) => {
 	);
 };
 
-export default Pagination;
+export default memo(Pagination);

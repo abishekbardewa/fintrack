@@ -10,17 +10,16 @@ const useCurrentUser = () => {
 
 	useEffect(() => {
 		const getCurrentUserFromLocalStorage = () => {
-			console.log('Triggered:useCurrentUser');
 			setLoading(true);
 			try {
 				const token = localStorage.getItem('token');
-				const user = JSON.parse(localStorage.getItem('user'));
+				const user = JSON.parse(localStorage.getItem('user') || '{}');
 
 				if (token && user) {
 					dispatch(setUser(user));
 				}
 			} catch (error) {
-				console.log('Error fetching user from localStorage:', error);
+				// Invalid user data in localStorage, ignore
 			} finally {
 				setLoading(false);
 			}

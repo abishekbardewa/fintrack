@@ -53,7 +53,8 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ onClose, onRegisterSucces
 				toast.error(data.err.msg);
 			}
 		} catch (error: any) {
-			toast.error(error.response.data.msg);
+			const errorMessage = error?.response?.data?.msg || error?.message || 'Registration failed. Please try again.';
+			toast.error(errorMessage);
 		} finally {
 			setLoading(false);
 		}
@@ -86,11 +87,11 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ onClose, onRegisterSucces
 	};
 
 	return (
-		<div className="fixed inset-0 bg-gray-100 bg-opacity-50 flex justify-center items-center">
-			<div className="relative overflow-hidden bg-white p-8 rounded shadow-lg w-96">
+		<div className="fixed inset-0 bg-black/60 flex justify-center items-center z-50">
+			<div className="relative overflow-hidden bg-card p-8 rounded-lg shadow-lg w-96 border border-border">
 				{loading && <ProgressBar />}
-				<h2 className="text-xl font-semibold ">Create Your Account</h2>
-				<p className="mt-1 mb-4 text-sm text-gray-500">Join to start tracking your spending today!</p>
+				<h2 className="text-xl font-semibold text-foreground">Create Your Account</h2>
+				<p className="mt-1 mb-4 text-sm text-muted-foreground">Join to start tracking your spending today!</p>
 				<form onSubmit={handleSubmit} noValidate>
 					<InputField
 						label="Name"
@@ -130,31 +131,23 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ onClose, onRegisterSucces
 
 					<div className="flex items-center mb-4 mt-[-8px]">
 						<input type="checkbox" id="show-password" checked={showPassword} onChange={toggleShowPassword} className="mr-2" />
-						<label htmlFor="show-password" className="text-sm text-gray-700">
+						<label htmlFor="show-password" className="text-sm text-foreground">
 							Show password
 						</label>
 					</div>
 
-					<Button
-						buttonType="button"
-						size="sm"
-						variant="filled"
-						innerClass="w-full bg-blue-500 text-white border-primary"
-						onClick={handleRegister}
-						disabled={loading}
-						loading={loading}
-					>
+					<Button buttonType="button" size="sm" variant="filled" fullWidth onClick={handleRegister} disabled={loading} loading={loading}>
 						{loading ? 'Signing up...' : 'Sign Up'}
 					</Button>
 
-					<Button buttonType="button" size="sm" variant="outline" innerClass="w-full mt-4 text-red-500 " onClick={onClose} disabled={loading}>
+					<Button buttonType="button" size="sm" variant="outline" fullWidth onClick={onClose} disabled={loading} innerClass="mt-2">
 						Cancel
 					</Button>
 				</form>
 				<div className="mt-4 text-center">
-					<h2 className="text-sm font-medium text-gray-600">
+					<h2 className="text-sm font-medium text-muted-foreground">
 						Already have a account?{' '}
-						<span className="text-primary font-semibold cursor-pointer" onClick={openLogin}>
+						<span className="text-primary font-semibold cursor-pointer hover:underline" onClick={openLogin}>
 							{' '}
 							Login Here!
 						</span>

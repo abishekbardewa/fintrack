@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
 import Dropdown from '../components/common/Dropdown';
 import Button from '../components/common/Button';
+import Card from '../components/common/Card';
 import { months, years } from '../constants';
 import { axiosPrivate } from '../services/axios.service';
 import { toast } from 'react-toastify';
 import { Bar, Doughnut, Line } from 'react-chartjs-2';
 import 'chart.js/auto';
-import Loader from '../components/common/Loader';
+import { SkeletonLoader } from '../components/common';
 import EmptyState from '../components/common/EmptyState';
 import { formatCurrency, formatDate } from '../utils';
 const History: React.FC = () => {
@@ -59,7 +60,7 @@ const History: React.FC = () => {
 			setTotalSpentData(totalSpentChart);
 			setInsights(insights);
 		} catch (error) {
-			console.log(error);
+			// Error already handled by axios interceptor
 		} finally {
 			setLoading(false);
 		}
@@ -99,56 +100,108 @@ const History: React.FC = () => {
 					/>
 				</div>
 				<div className="col-span-1 flex flex-col gap-4 justify-end">
-					<Button
-						buttonType="button"
-						size="sm"
-						variant="filled"
-						innerClass="w-full bg-blue-500 text-white border-primary"
-						onClick={getData}
-						disable={loading}
-						loading={loading}
-					>
+					<Button buttonType="button" size="sm" variant="filled" fullWidth onClick={getData} disabled={loading} loading={loading}>
 						Generate
 					</Button>
 				</div>
 			</div>
 
 			{loading ? (
-				<Loader />
+				<>
+					{/* Insights Skeleton */}
+					<div className="mb-8">
+						<SkeletonLoader variant="text" width="120px" height="32px" className="mb-5" />
+						<div className="space-y-3">
+							{Array.from({ length: 4 }).map((_, index) => (
+								<SkeletonLoader key={index} variant="text" width="100%" />
+							))}
+						</div>
+					</div>
+
+					{/* Charts Skeleton */}
+					<div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-20">
+						<Card padding="lg">
+							<SkeletonLoader variant="text" width="200px" height="24px" className="mb-5" />
+							<div className="h-[400px] flex items-center justify-center">
+								<SkeletonLoader variant="rectangular" width="100%" height="300px" />
+							</div>
+						</Card>
+						<Card padding="lg">
+							<SkeletonLoader variant="text" width="200px" height="24px" className="mb-5" />
+							<div className="h-[400px] flex items-center justify-center">
+								<SkeletonLoader variant="rectangular" width="100%" height="300px" />
+							</div>
+						</Card>
+					</div>
+
+					{/* Monthly Expense Cards Skeleton */}
+					<div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-20">
+						{Array.from({ length: 2 }).map((_, index) => (
+							<Card key={index} padding="lg">
+								<SkeletonLoader variant="text" width="250px" height="24px" className="mb-5" />
+
+								{/* Chart skeleton */}
+								<div className="h-[300px] mb-4 flex items-center justify-center">
+									<SkeletonLoader variant="circular" width={200} height={200} />
+								</div>
+
+								{/* Table skeleton */}
+								<div className="overflow-x-auto border border-border rounded-lg">
+									<div className="min-w-full">
+										{/* Table header */}
+										<div className="bg-muted px-3 py-2 flex">
+											<SkeletonLoader variant="text" width="80px" className="mr-4" />
+											<SkeletonLoader variant="text" width="100px" className="mr-4" />
+											<SkeletonLoader variant="text" width="60px" />
+										</div>
+										{/* Table rows */}
+										{Array.from({ length: 4 }).map((_, rowIndex) => (
+											<div key={rowIndex} className="px-3 py-2 border-b border-border last:border-b-0 flex">
+												<SkeletonLoader variant="text" width="60%" className="mr-4" />
+												<SkeletonLoader variant="text" width="25%" className="mr-4" />
+												<SkeletonLoader variant="text" width="15%" />
+											</div>
+										))}
+									</div>
+								</div>
+							</Card>
+						))}
+					</div>
+				</>
 			) : (
 				<>
 					{insights && (
 						<>
-							<h2 className="text-2xl font-semibold leading-6 text-gray-900 mb-5">Insights</h2>
+							<h2 className="text-2xl font-semibold leading-6 text-foreground mb-5">Insights</h2>
 							<ul role="list" className="">
 								{insights.highestSpendingMonth && (
 									<li className="flex justify-between gap-x-6">
-										<p className="text-md   text-gray-500">{insights.highestSpendingMonth}</p>
+										<p className="text-md text-muted-foreground">{insights.highestSpendingMonth}</p>
 									</li>
 								)}
 								{insights.lowestSpendingMonth && (
 									<li className="flex justify-between gap-x-6">
-										<p className="text-md   text-gray-500">{insights.lowestSpendingMonth}</p>
+										<p className="text-md text-muted-foreground">{insights.lowestSpendingMonth}</p>
 									</li>
 								)}
 								{insights.spendingIncreaseDecrease && (
 									<li className="flex justify-between gap-x-6">
-										<p className="text-md   text-gray-500">{insights.spendingIncreaseDecrease}</p>
+										<p className="text-md text-muted-foreground">{insights.spendingIncreaseDecrease}</p>
 									</li>
 								)}
 								{insights.biggestCategorySpending && (
 									<li className="flex justify-between gap-x-6">
-										<p className="text-md   text-gray-500">{insights.biggestCategorySpending}</p>
+										<p className="text-md text-muted-foreground">{insights.biggestCategorySpending}</p>
 									</li>
 								)}
 								{insights.totalSpent && (
 									<li className="flex justify-between gap-x-6">
-										<p className="text-md   text-gray-500">{insights.totalSpent}</p>
+										<p className="text-md text-muted-foreground">{insights.totalSpent}</p>
 									</li>
 								)}
 								{insights.averageMonthlySpending && (
 									<li className="flex justify-between gap-x-6">
-										<p className="text-md   text-gray-500">{insights.averageMonthlySpending}</p>
+										<p className="text-md text-muted-foreground">{insights.averageMonthlySpending}</p>
 									</li>
 								)}
 							</ul>
@@ -157,8 +210,8 @@ const History: React.FC = () => {
 					{comparisonData && totalSpentData && (
 						<div className="grid grid-cols-1 md:grid-cols-2  gap-8 mt-20">
 							<div>
-								<h2 className="text-2xl font-semibold leading-6 text-gray-900 mb-5">Category Comparison</h2>
-								<div className="h-[500px] p-6 bg-white rounded-[16px]">
+								<h2 className="text-2xl font-semibold leading-6 text-foreground mb-5">Category Comparison</h2>
+								<div className="h-[500px] p-6 bg-card rounded-[16px]">
 									{comparisonData?.labels.length > 0 ? (
 										<Bar
 											data={comparisonData}
@@ -179,8 +232,8 @@ const History: React.FC = () => {
 
 							{totalSpentData && (
 								<div>
-									<h2 className="text-2xl font-semibold leading-6 text-gray-900 mb-5">Total Spent Comparison</h2>
-									<div className="h-[500px] p-6 bg-white rounded-[16px]">
+									<h2 className="text-2xl font-semibold leading-6 text-foreground mb-5">Total Spent Comparison</h2>
+									<div className="h-[500px] p-6 bg-card rounded-[16px]">
 										{totalSpentData?.labels.length > 0 ? (
 											<Bar
 												data={totalSpentData}
@@ -205,12 +258,12 @@ const History: React.FC = () => {
 					{monthlyExpense && monthlyExpense.length > 0 && (
 						<div className="grid grid-cols-1 md:grid-cols-2  gap-8 mt-20">
 							{monthlyExpense.map((expDetails: any) => (
-								<>
+								<Card key={expDetails.month} padding="lg">
 									{expDetails.chart && expDetails.chart.labels.length > 0 ? (
-										<div key={expDetails.month}>
-											<h2 className="text-2xl font-semibold leading-6 text-gray-900 mb-5">
+										<>
+											<h2 className="text-2xl font-semibold leading-6 text-foreground mb-5">
 												{expDetails.month} {formatCurrency(expDetails.totalAmount)}
-												<span className="ml-2 font-normal text-sm text-gray-500">Total spent</span>
+												<span className="ml-2 font-normal text-sm text-muted-foreground">Total spent</span>
 											</h2>
 
 											<div className="h-[500px] p-6 ">
@@ -225,19 +278,19 @@ const History: React.FC = () => {
 											</div>
 
 											<div>
-												<h2 className="text-2xl font-semibold leading-6 text-gray-900 mb-5">{expDetails.month} Entries</h2>
-												<div className="min-w-full align-middle  rounded-[16px] bg-white h-[500px] overflow-y-auto overflow-x-auto scrollbar-hidden">
+												<h2 className="text-2xl font-semibold leading-6 text-foreground mb-5">{expDetails.month} Entries</h2>
+												<div className="min-w-full align-middle  rounded-[16px] bg-white h-[500px] overflow-y-auto overflow-x-auto scrollbar-hidden border border-border">
 													{expDetails.expensesEntries && expDetails.expensesEntries.length > 0 ? (
-														<table className="min-w-full divide-y divide-gray-300">
-															<thead className="bg-gray-100">
+														<table className="min-w-full divide-y divide-border">
+															<thead className="bg-card">
 																<tr>
-																	<th scope="col" className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900">
+																	<th scope="col" className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-foreground">
 																		Category
 																	</th>
-																	<th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 whitespace-nowrap">
+																	<th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-foreground whitespace-nowrap">
 																		Added date
 																	</th>
-																	<th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+																	<th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-foreground">
 																		Amount
 																	</th>
 																	{/* <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
@@ -245,18 +298,18 @@ const History: React.FC = () => {
 																</th> */}
 																</tr>
 															</thead>
-															<tbody className="divide-y divide-gray-200 bg-white">
+															<tbody className="divide-y divide-border bg-background">
 																{expDetails.expensesEntries.map((entry, idx) => (
 																	<tr key={`${entry?._id}-${idx}`}>
-																		<td className="py-4 pl-4 pr-3 text-sm font-medium text-gray-900">
+																		<td className="py-4 pl-4 pr-3 text-sm font-medium text-foreground">
 																			{entry?.category}
-																			{entry?.description && <p className="mt-1   text-xs leading-5 text-gray-500">{entry?.description}</p>}
+																			{entry?.description && <p className="mt-1 text-xs leading-5 text-muted-foreground">{entry?.description}</p>}
 																		</td>
-																		<td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+																		<td className="whitespace-nowrap px-3 py-4 text-sm text-muted-foreground">
 																			{formatDate(entry.date)}
 																			{/* {entry?.date} */}
 																		</td>
-																		<td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{formatCurrency(entry?.amount)}</td>
+																		<td className="whitespace-nowrap px-3 py-4 text-sm text-muted-foreground">{formatCurrency(entry?.amount)}</td>
 																	</tr>
 																))}
 															</tbody>
@@ -266,14 +319,14 @@ const History: React.FC = () => {
 													)}
 												</div>
 											</div>
-										</div>
+										</>
 									) : (
 										<EmptyState
 											title={`No data available for ${expDetails.month}`}
 											subtitle="Start adding expenses for this month to see detailed charts and expense entries."
 										/>
 									)}
-								</>
+								</Card>
 							))}
 						</div>
 					)}

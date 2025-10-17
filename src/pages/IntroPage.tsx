@@ -31,17 +31,10 @@ const IntroPage: React.FC = () => {
 		<>
 			<div className="flex items-center justify-center h-screen p-8">
 				<div className="text-center">
-					<h1 className="text-3xl font-bold">Welcome to FinTRACK</h1>
-					<p className="mt-1  mb-6 text-lg text-gray-500 text-center">Your personal finance tracker for smarter spending.</p>
+					<h1 className="text-3xl font-bold text-foreground">Welcome to FinTRACK</h1>
+					<p className="mt-1  mb-6 text-lg text-muted-foreground text-center">Your personal finance tracker for smarter spending.</p>
 					<div className="flex flex-row items-center justify-center gap-2">
-						<Button
-							buttonType="button"
-							size="sm"
-							variant="filled"
-							innerClass="w-full md:w-28  border border-white"
-							innerTextClass="text-white"
-							onClick={() => setShowLogin(true)}
-						>
+						<Button buttonType="button" size="sm" variant="filled" innerClass="w-full md:w-28 " onClick={() => setShowLogin(true)}>
 							Log In
 						</Button>
 
@@ -49,8 +42,7 @@ const IntroPage: React.FC = () => {
 							buttonType="button"
 							size="sm"
 							variant="outline"
-							innerClass="w-full md:w-28  border border-primary whitespace-nowrap"
-							innerTextClass="text-primary"
+							innerClass="w-full md:w-28  whitespace-nowrap"
 							onClick={() => setShowRegister(true)}
 						>
 							Sign Up

@@ -1,27 +1,45 @@
 import React from 'react';
 import { LuLoader2 } from 'react-icons/lu';
 
-const Button: React.FC<any> = ({
+interface ButtonProps {
+	size?: 'sm' | 'md' | 'lg' | 'noPadding';
+	startIcon?: React.ReactNode;
+	endIcon?: React.ReactNode;
+	buttonType?: 'button' | 'submit' | 'reset';
+	disabled?: boolean;
+	innerClass?: string;
+	innerTextClass?: string;
+	variant?: 'filled' | 'outline' | 'error' | 'ghost';
+	loading?: boolean;
+	onClick?: () => void;
+	children: React.ReactNode;
+	fullWidth?: boolean;
+}
+
+const Button: React.FC<ButtonProps> = ({
 	size = 'md',
-	startIcon = '',
-	endIcon = '',
+	startIcon,
+	endIcon,
 	buttonType = 'button',
 	disabled = false,
 	innerClass = '',
 	innerTextClass = '',
 	variant = 'filled',
 	loading = false,
-	onClick = () => {},
+	onClick,
 	children,
+	fullWidth = false,
 }) => {
 	const getVariantClass = () => {
 		switch (variant) {
 			case 'filled':
-				return 'bg-primary border-primary-200 text-white hover:bg-primary-600 hover:border-primary-600 disabled:bg-gray-200 disabled:border-gray-200 focus:ring-primary-50';
+				return 'bg-primary border-primary text-primary-foreground hover:bg-primary/90 disabled:bg-muted disabled:border-muted disabled:text-muted-foreground focus:ring-ring';
 			case 'outline':
-				return 'bg-transparent border-gray-200 text-gray-900 hover:border-gray-300 hover:bg-gray-25 disabled:text-gray-200 disabled:border-gray-200 focus:ring-gray-100';
+				return 'bg-transparent border-border text-foreground hover:border-primary hover:bg-muted hover:text-primary disabled:text-muted-foreground disabled:border-border disabled:hover:bg-transparent focus:ring-ring';
 			case 'error':
-				return 'hover:bg-transparent border-error-600 bg-error-600 text-white hover:text-error-600 hover:border-error-600 hover:bg-error-700 ';
+				return 'bg-destructive border-destructive text-destructive-foreground hover:bg-destructive/90 disabled:bg-muted disabled:border-muted disabled:text-muted-foreground focus:ring-ring';
+			case 'ghost':
+				return 'bg-transparent border-transparent text-foreground hover:bg-muted disabled:text-muted-foreground disabled:hover:bg-transparent focus:ring-ring';
 			default:
 				return '';
 		}
@@ -44,14 +62,16 @@ const Button: React.FC<any> = ({
 
 	return (
 		<button
-			className={`cursor-pointer rounded-full border font-semibold shadow-xs transition-colors focus:ring-2 ring-[#737B8B] ${getVariantClass()} ${getSizeClass()} ${innerClass}`}
+			className={`cursor-pointer rounded-full border font-semibold shadow-xs transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-1 ${getVariantClass()} ${getSizeClass()} ${
+				fullWidth ? 'w-full' : ''
+			} ${innerClass}`}
 			disabled={disabled || loading}
 			type={buttonType}
 			onClick={onClick}
 		>
 			<div className={`flex items-center justify-center ${size === 'lg' ? 'h-7' : size === 'md' || size === 'sm' ? 'h-6' : ''}`}>
 				{loading ? (
-					<LuLoader2 className="w-5 h-5 text-white animate-spin" />
+					<LuLoader2 className="w-5 h-5 text-primary-foreground animate-spin" />
 				) : (
 					<div className={`flex h-6 items-center justify-center gap-2 text-center ${innerTextClass}`}>
 						{startIcon && startIcon}

@@ -29,15 +29,15 @@ const InputField: React.FC<InputFieldProps> = ({
 	className = '',
 	onChange,
 }) => {
-	const inputClassNames = `mt-1 focus:ring-indigo-500 focus:outline-none focus:border-green-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md
-    ${error ? '!border-error-700 focus:border-error-700 focus:ring-error-700' : 'border-gray-100 focus:border-primary-300 focus:ring-primary-50'}
-    ${disabled ? 'bg-gray-50 text-opacity-70' : ''}
+	const inputClassNames = `mt-1 focus:ring-primary focus:outline-none focus:border-primary block w-full sm:text-sm
+    ${error ? '!border-destructive focus:border-destructive focus:ring-destructive' : 'border-border focus:border-primary focus:ring-primary'}
+    ${disabled ? 'bg-muted text-muted-foreground' : ''}
     ${className}`;
 
 	return (
 		<div className="mb-4">
-			<label htmlFor={id} className="block text-sm font-medium text-gray-700">
-				{label} {required && <span className="text-red-500">*</span>}
+			<label htmlFor={id} className="block text-sm font-medium text-foreground">
+				{label} {required && <span className="text-destructive">*</span>}
 			</label>
 
 			<input
@@ -52,7 +52,7 @@ const InputField: React.FC<InputFieldProps> = ({
 				className={inputClassNames}
 			/>
 
-			{error && <span className="text-red-500 text-sm">{error}</span>}
+			{error && <span className="text-destructive text-sm">{error}</span>}
 		</div>
 	);
 };

@@ -1,11 +1,17 @@
 import { useEffect, useState } from 'react';
-import Button from './common/Button';
+import Modal from './common/Modal';
 import InputField from './common/InputField';
 import TextAreaField from './common/TextAreaField';
+import FormActions from './common/FormActions';
 import { useExpenseContext } from './context/ExpenseProvider';
 import { formatDateToUTC } from '../utils';
 
-const EditExpenseModal: React.FC<any> = ({ category, closeModal }: any) => {
+interface EditExpenseModalProps {
+	category: { _id: string; category: string; amount: string; date: string; description: string };
+	closeModal: () => void;
+}
+
+const EditExpenseModal: React.FC<EditExpenseModalProps> = ({ category, closeModal }) => {
 	const [amount, setAmount] = useState<string>('');
 	const [date, setDate] = useState<string>('');
 	const [description, setDescription] = useState<string>('');
@@ -19,6 +25,7 @@ const EditExpenseModal: React.FC<any> = ({ category, closeModal }: any) => {
 			setDescription(category.description);
 		}
 	}, []);
+
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		setError({});
@@ -43,54 +50,44 @@ const EditExpenseModal: React.FC<any> = ({ category, closeModal }: any) => {
 	};
 
 	return (
-		<div className="fixed inset-0 bg-gray-100 bg-opacity-50 flex justify-center items-center">
-			<div className="bg-white p-8 rounded shadow-lg w-96">
-				<h2 className="text-xl font-semibold mb-4">Edit Expense for {category?.category}</h2>
-				<form onSubmit={handleSubmit} noValidate>
-					<InputField
-						label="Amount"
-						id="amount"
-						name="amount"
-						type="number"
-						value={amount}
-						placeholder="amount"
-						required={true}
-						error={error.amount}
-						onChange={(e) => setAmount(e.target.value)}
-					/>
-					<InputField
-						label="Date"
-						id="date"
-						name="date"
-						type="date"
-						value={date}
-						placeholder="date"
-						required={true}
-						error={error.date}
-						onChange={(e) => setDate(e.target.value)}
-					/>
-					<TextAreaField
-						label="Description (Optional)"
-						id="description"
-						name="description"
-						placeholder="Write your description"
-						value={description}
-						maxLength={100}
-						rows={2}
-						required={false}
-						onChange={(e) => setDescription(e.target.value)}
-					/>
-					<div className="flex flex-1 w-100 items-center justify-start gap-4">
-						<Button buttonType="submit" disabled={loading} loading={loading} size="sm" variant="filled" innerClass="w-full border-primary text-white">
-							Edit expense
-						</Button>
-						<Button buttonType="button" size="sm" variant="outline" innerClass="w-full  text-red-500" disabled={loading} onClick={closeModal}>
-							Cancel
-						</Button>
-					</div>
-				</form>
-			</div>
-		</div>
+		<Modal title={`Edit Expense for ${category?.category}`} onClose={closeModal}>
+			<form onSubmit={handleSubmit} noValidate>
+				<InputField
+					label="Amount"
+					id="amount"
+					name="amount"
+					type="number"
+					value={amount}
+					placeholder="amount"
+					required={true}
+					error={error.amount}
+					onChange={(e) => setAmount(e.target.value)}
+				/>
+				<InputField
+					label="Date"
+					id="date"
+					name="date"
+					type="date"
+					value={date}
+					placeholder="date"
+					required={true}
+					error={error.date}
+					onChange={(e) => setDate(e.target.value)}
+				/>
+				<TextAreaField
+					label="Description (Optional)"
+					id="description"
+					name="description"
+					placeholder="Write your description"
+					value={description}
+					maxLength={100}
+					rows={2}
+					required={false}
+					onChange={(e) => setDescription(e.target.value)}
+				/>
+				<FormActions submitText="Edit expense" cancelText="Cancel" isSubmitting={loading} onCancel={closeModal} />
+			</form>
+		</Modal>
 	);
 };
 
