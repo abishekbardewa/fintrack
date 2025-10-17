@@ -34,9 +34,9 @@ function Dropdown<T>({ label, options, selectedValue, onSelect, displayValue, ke
 				{label}
 			</label>
 			<div className="relative mt-1">
-				<button
-					type="button"
-					className="relative w-full cursor-default bg-card py-2 px-3 rounded-md text-left text-foreground shadow-sm ring-1 ring-border focus:outline-none focus:ring-2 focus:ring-primary sm:text-sm"
+				<div
+					role="button"
+					className="relative w-full cursor-default bg-background py-2 px-3 rounded-md text-left text-foreground shadow-sm ring-1 ring-border focus:outline-none focus:ring-2 focus:ring-primary sm:text-sm"
 					aria-haspopup="listbox"
 					aria-expanded={isOpen}
 					aria-labelledby={`${label}-label`}
@@ -52,10 +52,10 @@ function Dropdown<T>({ label, options, selectedValue, onSelect, displayValue, ke
 							/>
 						</svg>
 					</span>
-				</button>
+				</div>
 				{isOpen && (
 					<ul
-						className="absolute z-10 max-h-52 w-full overflow-auto rounded-md bg-card py-1 text-base shadow-lg ring-1 ring-border focus:outline-none sm:text-sm"
+						className="absolute z-10 max-h-52 w-full overflow-auto rounded-md bg-background text-base shadow-lg ring-1 ring-border focus:outline-none sm:text-sm no-scrollbar"
 						tabIndex={-1}
 						role="listbox"
 						aria-labelledby={`${label}-label`}

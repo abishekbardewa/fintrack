@@ -27,7 +27,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen = true, onClose, title, subtitle, 
 	};
 
 	return (
-		<div className="fixed inset-0 z-50 bg-background/50 backdrop-blur-sm flex justify-center items-center" onClick={handleBackdropClick}>
+		<div className="fixed inset-0 z-50 bg-black/60 flex justify-center items-center" onClick={handleBackdropClick}>
 			<div className={`relative bg-card p-8 rounded-lg shadow-lg ${sizeClasses[size]} max-w-[95vw]`}>
 				{/* Close Button */}
 				{showCloseButton && onClose && (

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import Dropdown from '../components/common/Dropdown';
 import Button from '../components/common/Button';
+import Card from '../components/common/Card';
 import { months, years } from '../constants';
 import { axiosPrivate } from '../services/axios.service';
 import { toast } from 'react-toastify';
@@ -99,15 +100,7 @@ const History: React.FC = () => {
 					/>
 				</div>
 				<div className="col-span-1 flex flex-col gap-4 justify-end">
-					<Button
-						buttonType="button"
-						size="sm"
-						variant="filled"
-						innerClass="w-full bg-blue-500 text-white border-primary"
-						onClick={getData}
-						disable={loading}
-						loading={loading}
-					>
+					<Button buttonType="button" size="sm" variant="filled" fullWidth onClick={getData} disabled={loading} loading={loading}>
 						Generate
 					</Button>
 				</div>
@@ -179,7 +172,7 @@ const History: React.FC = () => {
 
 							{totalSpentData && (
 								<div>
-									<h2 className="text-2xl font-semibold leading-6 text-gray-900 mb-5">Total Spent Comparison</h2>
+									<h2 className="text-2xl font-semibold leading-6 text-foreground mb-5">Total Spent Comparison</h2>
 									<div className="h-[500px] p-6 bg-white rounded-[16px]">
 										{totalSpentData?.labels.length > 0 ? (
 											<Bar
@@ -205,12 +198,12 @@ const History: React.FC = () => {
 					{monthlyExpense && monthlyExpense.length > 0 && (
 						<div className="grid grid-cols-1 md:grid-cols-2  gap-8 mt-20">
 							{monthlyExpense.map((expDetails: any) => (
-								<>
+								<Card key={expDetails.month} padding="lg">
 									{expDetails.chart && expDetails.chart.labels.length > 0 ? (
-										<div key={expDetails.month}>
-											<h2 className="text-2xl font-semibold leading-6 text-gray-900 mb-5">
+										<>
+											<h2 className="text-2xl font-semibold leading-6 text-foreground mb-5">
 												{expDetails.month} {formatCurrency(expDetails.totalAmount)}
-												<span className="ml-2 font-normal text-sm text-gray-500">Total spent</span>
+												<span className="ml-2 font-normal text-sm text-muted-foreground">Total spent</span>
 											</h2>
 
 											<div className="h-[500px] p-6 ">
@@ -225,19 +218,19 @@ const History: React.FC = () => {
 											</div>
 
 											<div>
-												<h2 className="text-2xl font-semibold leading-6 text-gray-900 mb-5">{expDetails.month} Entries</h2>
+												<h2 className="text-2xl font-semibold leading-6 text-foreground mb-5">{expDetails.month} Entries</h2>
 												<div className="min-w-full align-middle  rounded-[16px] bg-white h-[500px] overflow-y-auto overflow-x-auto scrollbar-hidden">
 													{expDetails.expensesEntries && expDetails.expensesEntries.length > 0 ? (
 														<table className="min-w-full divide-y divide-gray-300">
-															<thead className="bg-gray-100">
+															<thead className="bg-muted">
 																<tr>
-																	<th scope="col" className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900">
+																	<th scope="col" className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-foreground">
 																		Category
 																	</th>
-																	<th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 whitespace-nowrap">
+																	<th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-foreground whitespace-nowrap">
 																		Added date
 																	</th>
-																	<th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+																	<th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-foreground">
 																		Amount
 																	</th>
 																	{/* <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
@@ -248,15 +241,15 @@ const History: React.FC = () => {
 															<tbody className="divide-y divide-gray-200 bg-white">
 																{expDetails.expensesEntries.map((entry, idx) => (
 																	<tr key={`${entry?._id}-${idx}`}>
-																		<td className="py-4 pl-4 pr-3 text-sm font-medium text-gray-900">
+																		<td className="py-4 pl-4 pr-3 text-sm font-medium text-foreground">
 																			{entry?.category}
-																			{entry?.description && <p className="mt-1   text-xs leading-5 text-gray-500">{entry?.description}</p>}
+																			{entry?.description && <p className="mt-1 text-xs leading-5 text-muted-foreground">{entry?.description}</p>}
 																		</td>
-																		<td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+																		<td className="whitespace-nowrap px-3 py-4 text-sm text-muted-foreground">
 																			{formatDate(entry.date)}
 																			{/* {entry?.date} */}
 																		</td>
-																		<td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{formatCurrency(entry?.amount)}</td>
+																		<td className="whitespace-nowrap px-3 py-4 text-sm text-muted-foreground">{formatCurrency(entry?.amount)}</td>
 																	</tr>
 																))}
 															</tbody>
@@ -266,14 +259,14 @@ const History: React.FC = () => {
 													)}
 												</div>
 											</div>
-										</div>
+										</>
 									) : (
 										<EmptyState
 											title={`No data available for ${expDetails.month}`}
 											subtitle="Start adding expenses for this month to see detailed charts and expense entries."
 										/>
 									)}
-								</>
+								</Card>
 							))}
 						</div>
 					)}

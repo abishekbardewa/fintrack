@@ -27,9 +27,7 @@ const TextAreaField: React.FC<TextAreaFieldProps> = ({ label, id, name, value, r
 				value={value}
 				onChange={onChange}
 				rows={rows}
-				className={`focus:outline-none focus:ring-primary focus:border-primary block w-full shadow-sm sm:text-sm border-border rounded-md bg-input text-foreground ${
-					error ? 'border-destructive' : ''
-				}`}
+				className={`focus:outline-none focus:ring-primary focus:border-primary block w-full sm:text-sm  ${error ? 'border-destructive' : ''}`}
 				required={required}
 			></textarea>
 			{required ? (

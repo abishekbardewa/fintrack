@@ -29,7 +29,7 @@ const InputField: React.FC<InputFieldProps> = ({
 	className = '',
 	onChange,
 }) => {
-	const inputClassNames = `mt-1 focus:ring-primary focus:outline-none focus:border-primary block w-full shadow-sm sm:text-sm border-border rounded-md bg-input text-foreground
+	const inputClassNames = `mt-1 focus:ring-primary focus:outline-none focus:border-primary block w-full sm:text-sm
     ${error ? '!border-destructive focus:border-destructive focus:ring-destructive' : 'border-border focus:border-primary focus:ring-primary'}
     ${disabled ? 'bg-muted text-muted-foreground' : ''}
     ${className}`;

@@ -68,11 +68,11 @@ const ConfirmModal: React.FC<ConfirmModalProps> = ({
 	return (
 		<>
 			<div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto overflow-x-hidden outline-none focus:outline-none">
-				<div className="fixed inset-0 bg-black opacity-50" onClick={() => setShowModal(false)}></div>
-				<div className="relative z-10 p-4 bg-white rounded-lg shadow  max-w-md w-full m-4">
+				<div className="fixed inset-0 bg-black/60" onClick={() => setShowModal(false)}></div>
+				<div className="relative z-10 p-4 bg-card rounded-lg shadow max-w-md w-full m-4 border border-border">
 					<button
 						type="button"
-						className="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center "
+						className="absolute top-3 end-2.5 text-muted-foreground bg-transparent hover:bg-muted hover:text-foreground rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center"
 						data-modal-hide=""
 						onClick={onCancel}
 					>
@@ -96,7 +96,7 @@ const ConfirmModal: React.FC<ConfirmModalProps> = ({
 									}`}
 									onClick={onConfirm}
 								>
-									{confirmDisabled ? <LuLoader2 className="w-6 h-6 text-white animate-spin" /> : confirmText}
+									{confirmDisabled ? <LuLoader2 className="w-6 h-6 text-destructive-foreground animate-spin" /> : confirmText}
 								</button>
 								{onCancel && cancelText && (
 									<button

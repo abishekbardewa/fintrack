@@ -60,24 +60,24 @@ export default function UserMenu() {
 				<MenuLink to="/trend">Trend</MenuLink>
 			</div>
 			<div ref={buttonRef} className="relative">
-				<button
-					type="button"
+				<div
+					role="button"
 					onClick={toggleMenu}
-					className="relative bg-card rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 hover:opacity-70 flex items-center space-x-1.5 transition-opacity"
+					className="relative rounded-full text-sm focus:outline-none  hover:opacity-70 flex items-center space-x-1.5 transition-opacity"
 				>
-					<div className="flex h-10 w-10 items-center justify-center rounded-full border border-border bg-muted font-semibold uppercase text-foreground">
+					<div className="flex h-10 w-10 items-center justify-center rounded-full border border-border bg-card font-semibold uppercase text-foreground">
 						{getInitials(user.name)}
 					</div>
 					<FaAngleDown className={`transition-transform duration-200 ${isMenuOpen ? 'rotate-180' : 'rotate-0'}`} />
-				</button>
+				</div>
 
 				<div
-					className={`absolute right-0 top-full z-20 w-48 origin-top-right overflow-hidden rounded-lg bg-card shadow-lg transition-all duration-300 transform ${
+					className={`absolute right-0 top-full z-20 w-48 origin-top-right overflow-hidden rounded-lg bg-background shadow-lg transition-all duration-300 transform ${
 						isMenuOpen ? 'block opacity-100 translate-y-0' : 'hidden opacity-0 -translate-y-2'
 					}`}
 				>
 					{/* Dropdown Content */}
-					<div className="space-y-3 bg-muted p-4">
+					<div className="space-y-3 bg-card p-4">
 						<p className="text-lg font-semibold break-words text-foreground">{user?.name}</p>
 					</div>
 					<ul>

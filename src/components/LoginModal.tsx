@@ -89,10 +89,10 @@ const LoginModal: React.FC<LoginModalProps> = ({ onClose, onLoginSuccess, onRegi
 	};
 
 	return (
-		<div className="fixed inset-0 bg-background/50 backdrop-blur-sm flex justify-center items-center">
-			<div className="relative overflow-hidden bg-card p-8 rounded shadow-lg w-96">
+		<div className="fixed inset-0 bg-black/60 flex justify-center items-center z-50">
+			<div className="relative overflow-hidden bg-card p-8 rounded-lg shadow-lg w-96 border border-border">
 				{loading && <ProgressBar />}
-				<h2 className="text-xl font-semibold text-card-foreground">Log In to Your Account</h2>
+				<h2 className="text-xl font-semibold text-foreground">Log In to Your Account</h2>
 				<p className="mt-1 mb-4 text-sm text-muted-foreground">Welcome back! Let's track your expenses</p>
 				<form onSubmit={handleSubmit} noValidate>
 					<InputField
@@ -126,18 +126,11 @@ const LoginModal: React.FC<LoginModalProps> = ({ onClose, onLoginSuccess, onRegi
 						</label>
 					</div>
 
-					<Button buttonType="submit" size="sm" variant="filled" innerClass="w-full" disabled={loading} loading={loading}>
+					<Button buttonType="submit" size="sm" variant="filled" fullWidth disabled={loading} loading={loading}>
 						{loading ? 'Logging in...' : 'Login'}
 					</Button>
 
-					<Button
-						buttonType="button"
-						size="sm"
-						variant="outline"
-						innerClass="w-full mt-4 text-destructive border-destructive hover:bg-destructive/10"
-						onClick={onClose}
-						disabled={loading}
-					>
+					<Button buttonType="button" size="sm" variant="outline" fullWidth onClick={onClose} disabled={loading} innerClass="mt-2">
 						Cancel
 					</Button>
 				</form>

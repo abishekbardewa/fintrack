@@ -10,6 +10,8 @@ interface FormActionsProps {
 	isDisabled?: boolean;
 	submitVariant?: 'filled' | 'outline' | 'error';
 	layout?: 'horizontal' | 'vertical';
+	showSubmit?: boolean;
+	showCancel?: boolean;
 }
 
 const FormActions: React.FC<FormActionsProps> = ({
@@ -21,34 +23,29 @@ const FormActions: React.FC<FormActionsProps> = ({
 	isDisabled = false,
 	submitVariant = 'filled',
 	layout = 'horizontal',
+	showSubmit = true,
+	showCancel = true,
 }) => {
 	const layoutClasses = layout === 'horizontal' ? 'flex items-center gap-4' : 'flex flex-col gap-3';
 
 	return (
 		<div className={`w-full ${layoutClasses}`}>
-			{onSubmit && (
+			{showCancel && onCancel && (
+				<Button buttonType="button" size="sm" variant="outline" fullWidth disabled={isSubmitting} onClick={onCancel}>
+					{cancelText}
+				</Button>
+			)}
+			{showSubmit && (
 				<Button
-					buttonType={onSubmit ? 'submit' : 'button'}
+					buttonType={onSubmit ? 'button' : 'submit'}
 					size="sm"
 					variant={submitVariant}
-					innerClass="w-full"
+					fullWidth
 					disabled={isDisabled || isSubmitting}
 					loading={isSubmitting}
 					onClick={onSubmit}
 				>
 					{submitText}
-				</Button>
-			)}
-			{onCancel && (
-				<Button
-					buttonType="button"
-					size="sm"
-					variant="outline"
-					innerClass="w-full text-destructive border-destructive hover:bg-destructive/10"
-					disabled={isSubmitting}
-					onClick={onCancel}
-				>
-					{cancelText}
 				</Button>
 			)}
 		</div>

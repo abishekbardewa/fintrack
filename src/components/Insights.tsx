@@ -42,8 +42,8 @@ const Insights: React.FC = () => {
 						<TabButton
 							label="Warnings"
 							onClick={() => setSelectedTab('warnings')}
-							color="text-error-600"
-							borderColor="border-error-600"
+							color="text-destructive"
+							borderColor="border-destructive"
 							isSelected={selectedTab === 'warnings'}
 						/>
 					</li>

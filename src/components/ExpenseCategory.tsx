@@ -45,15 +45,7 @@ const ExpenseCategory: React.FC = () => {
 			<SectionHeader
 				title="Expense Categories"
 				action={
-					<Button
-						buttonType="button"
-						size="md"
-						variant="filled"
-						innerClass="bg-white"
-						innerTextClass="text-primary whitespace-nowrap"
-						startIcon={<FaPlus />}
-						onClick={() => setShowCategoryModal(true)}
-					>
+					<Button buttonType="button" size="md" variant="outline" startIcon={<FaPlus />} onClick={() => setShowCategoryModal(true)}>
 						New category
 					</Button>
 				}
@@ -90,8 +82,8 @@ const ExpenseCategory: React.FC = () => {
 					onCancel={() => setShowModal(false)}
 					confirmDisabled={loading}
 					cancelDisabled={loading}
-					btnClass={'text-white bg-error-600 hover:bg-error-800 focus:ring-error-300 border-error-600'}
-					icon={<MdOutlineCancel className="w-10 h-10 text-error-600" />}
+					btnClass={'text-destructive-foreground bg-destructive hover:bg-destructive/90 focus:ring-ring border-destructive'}
+					icon={<MdOutlineCancel className="w-10 h-10 text-destructive" />}
 				/>
 			)}
 		</div>

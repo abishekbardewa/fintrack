@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
-import RadioGroup from '../components/common/RadioGroup';
-import Button from '../components/common/Button';
+import { SegmentedControl, Button } from '../components/common';
 import Dropdown from '../components/common/Dropdown';
 import { months, timeRange, timeRangeNames, trendOptions, years } from '../constants';
 import { toast } from 'react-toastify';
@@ -123,7 +122,10 @@ const TrendPage: React.FC = () => {
 	};
 	return (
 		<>
-			<RadioGroup options={trendOptions} name="trendOption" selectedOption={selectedOption} onChange={handleOptionChange} />
+			<div className="mb-8">
+				<h2 className="text-lg font-medium text-foreground mb-4">Choose option to generate trends</h2>
+				<SegmentedControl options={trendOptions} name="trendOption" selectedValue={selectedOption} onChange={handleOptionChange} />
+			</div>
 
 			{categoryLoading ? (
 				<Loader />
@@ -164,15 +166,7 @@ const TrendPage: React.FC = () => {
 						</>
 					)}
 					<div className="col-span-1 flex flex-col gap-4 justify-end">
-						<Button
-							buttonType="button"
-							size="sm"
-							variant="filled"
-							innerClass="w-full bg-blue-500 text-white border-primary"
-							onClick={getData}
-							disable={loading}
-							loading={loading}
-						>
+						<Button buttonType="button" size="sm" variant="filled" fullWidth onClick={getData} disabled={loading} loading={loading}>
 							Generate
 						</Button>
 					</div>
@@ -276,17 +270,17 @@ const TrendPage: React.FC = () => {
 							<ul role="list" className="">
 								{insights?.spendingTrend && (
 									<li className="flex justify-between gap-x-6">
-										<p className="text-md   text-gray-500">{insights?.spendingTrend}</p>
+										<p className="text-md text-muted-foreground">{insights?.spendingTrend}</p>
 									</li>
 								)}
 								{insights?.comparison && (
 									<li className="flex justify-between gap-x-6">
-										<p className="text-md   text-gray-500">{insights?.comparison}</p>
+										<p className="text-md text-muted-foreground">{insights?.comparison}</p>
 									</li>
 								)}
 								{insights?.suggestions && (
 									<li className="flex justify-between gap-x-6">
-										<p className="text-md   text-gray-500">{insights?.suggestions}</p>
+										<p className="text-md text-muted-foreground">{insights?.suggestions}</p>
 									</li>
 								)}
 							</ul>
@@ -295,8 +289,8 @@ const TrendPage: React.FC = () => {
 					{totalSpentChart && (
 						<div className="grid grid-cols-1 md:grid-cols-1  gap-8 mt-20">
 							<div>
-								<h2 className="text-2xl font-semibold leading-6 text-gray-900 mb-5">Total Spent Trend Comparison</h2>
-								<div className="h-[500px] p-6 bg-white rounded-[16px]">
+								<h2 className="text-2xl font-semibold leading-6 text-foreground mb-5">Total Spent Trend Comparison</h2>
+								<div className="h-[500px] p-6 bg-card rounded-[16px]">
 									{totalSpentChart && totalSpentChart?.labels?.length > 0 ? (
 										<Line
 											data={totalSpentChart}

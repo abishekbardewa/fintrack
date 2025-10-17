@@ -12,7 +12,7 @@ const NotFoundPage = () => {
 					<div className="mt-10 flex items-center justify-center gap-x-6">
 						<Link
 							to="/"
-							className="cursor-pointer rounded-full border font-semibold shadow-xs transition-colors focus:outline-none focus:ring-4 px-6 py-2.5 text-sm leading-6 bg-primary border-primary text-white hover:bg-primary-600 hover:border-primary-600 disabled:bg-gray-200 disabled:border-gray-200 focus:ring-primary-50"
+							className="cursor-pointer rounded-full border font-semibold shadow-xs transition-colors focus:outline-none focus:ring-4 px-6 py-2.5 text-sm leading-6 bg-primary border-primary text-primary-foreground hover:bg-primary/90 disabled:bg-muted disabled:border-muted focus:ring-ring"
 						>
 							Go back
 						</Link>

@@ -119,11 +119,16 @@ const ExpenseTable: React.FC = () => {
 					onCancel={() => setShowModal(false)}
 					confirmDisabled={paginationLoading}
 					cancelDisabled={paginationLoading}
-					btnClass={'text-white bg-error-600 hover:bg-error-800 focus:ring-error-300 border-error-600'}
-					icon={<MdOutlineCancel className="w-10 h-10 text-error-600" />}
+					btnClass={'text-destructive-foreground bg-destructive hover:bg-destructive/90 focus:ring-ring border-destructive'}
+					icon={<MdOutlineCancel className="w-10 h-10 text-destructive" />}
 				/>
 			)}
-			{showEditModal && <EditExpenseModal category={selectedRecord} closeModal={() => setShowEditModal(false)} />}
+			{showEditModal && selectedRecord && (
+				<EditExpenseModal
+					category={{ ...selectedRecord, amount: selectedRecord.amount.toString(), description: selectedRecord.description || '' }}
+					closeModal={() => setShowEditModal(false)}
+				/>
+			)}
 		</div>
 	);
 };
