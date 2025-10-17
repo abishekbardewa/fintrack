@@ -1,9 +1,9 @@
 import React, { memo } from 'react';
-import { LuLoader2 } from 'react-icons/lu';
 import { formatCurrency } from '../utils';
 import { useExpenseContext } from './context/ExpenseProvider';
 import StatCard from './common/StatCard';
 import InfoCard from './common/InfoCard';
+import { SkeletonLoader } from './common';
 
 const ExpenseHeader: React.FC = () => {
 	const { loading, totalAmount, totalAmountToday, topSpentCategory, LowestSpentCategory, mostFrequent, leastFrequent } = useExpenseContext();
@@ -12,7 +12,33 @@ const ExpenseHeader: React.FC = () => {
 	return (
 		<div>
 			{loading ? (
-				<LuLoader2 className="w-6 h-6 text-primary animate-spin" />
+				<>
+					{/* Main Stats Skeleton */}
+					<div className="mt-5 grid grid-cols-1 gap-5 lg:grid-cols-2">
+						<div className="bg-card p-6 rounded-lg border border-border">
+							<SkeletonLoader variant="text" className="mb-2" width="60%" />
+							<SkeletonLoader variant="text" className="text-2xl font-semibold" width="40%" />
+						</div>
+						<div className="bg-card p-6 rounded-lg border border-border">
+							<SkeletonLoader variant="text" className="mb-2" width="50%" />
+							<SkeletonLoader variant="text" className="text-2xl font-semibold" width="35%" />
+						</div>
+					</div>
+
+					{/* Info Cards Skeleton */}
+					<div className="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6 lg:grid-cols-4">
+						{Array.from({ length: 4 }).map((_, index) => (
+							<div key={index} className="bg-card p-4 rounded-lg border border-border">
+								<SkeletonLoader variant="text" className="mb-3" width="70%" />
+								<div className="space-y-2">
+									<SkeletonLoader variant="text" width="90%" />
+									<SkeletonLoader variant="text" width="80%" />
+									<SkeletonLoader variant="text" width="85%" />
+								</div>
+							</div>
+						))}
+					</div>
+				</>
 			) : (
 				<>
 					{/* Main Stats */}

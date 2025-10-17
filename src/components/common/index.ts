@@ -18,6 +18,7 @@ export { default as ProgressBar } from './ProgressBar';
 export { default as RadioGroup } from './RadioGroup';
 export { default as SectionHeader } from './SectionHeader';
 export { default as SegmentedControl } from './SegmentedControl';
+export { default as SkeletonLoader } from './SkeletonLoader';
 export { default as StatCard } from './StatCard';
 export { default as TabButton } from './TabButton';
 export { default as TextAreaField } from './TextAreaField';

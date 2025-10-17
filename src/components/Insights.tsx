@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
-import Loader from './common/Loader';
 import SectionHeader from './common/SectionHeader';
 import { useExpenseContext } from './context/ExpenseProvider';
 import MonthlyInsights from './MonthlyInsights';
 import ImprovementInsights from './ImprovementInsights';
 import WarningInsights from './WarningsInsight';
 import TabButton from './common/TabButton';
+import { SkeletonLoader } from './common';
 
 const Insights: React.FC = () => {
 	const { loading } = useExpenseContext();
@@ -13,7 +13,29 @@ const Insights: React.FC = () => {
 	const [selectedTab, setSelectedTab] = useState<string>('insights');
 
 	if (loading) {
-		return null;
+		return (
+			<div>
+				<SectionHeader title="Key Insights" />
+				<div className="h-[500px] px-5 py-4 pb-2 bg-card rounded-[16px]">
+					{/* Tab skeleton */}
+					<div className="flex mb-4">
+						{Array.from({ length: 3 }).map((_, index) => (
+							<SkeletonLoader key={index} variant="text" width="80px" height="32px" className="mr-2 rounded-md" />
+						))}
+					</div>
+
+					{/* Content skeleton */}
+					<div className="space-y-3">
+						{Array.from({ length: 8 }).map((_, index) => (
+							<div key={index} className="flex items-center justify-between">
+								<SkeletonLoader variant="text" width="70%" />
+								<SkeletonLoader variant="text" width="20%" />
+							</div>
+						))}
+					</div>
+				</div>
+			</div>
+		);
 	}
 	return (
 		<div>

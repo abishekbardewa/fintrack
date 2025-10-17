@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { SegmentedControl, Button } from '../components/common';
+import { SegmentedControl, Button, SkeletonLoader } from '../components/common';
 import Dropdown from '../components/common/Dropdown';
 import { months, timeRange, timeRangeNames, trendOptions, years } from '../constants';
 import { toast } from 'react-toastify';
@@ -7,7 +7,6 @@ import { axiosPrivate } from '../services/axios.service';
 import { Line } from 'react-chartjs-2';
 import EmptyState from '../components/common/EmptyState';
 import { formatCurrency } from '../utils';
-import Loader from '../components/common/Loader';
 
 const TrendPage: React.FC = () => {
 	const [selectedOption, setSelectedOption] = useState(() => localStorage.getItem('selectedOption') || 'category');
@@ -128,7 +127,14 @@ const TrendPage: React.FC = () => {
 			</div>
 
 			{categoryLoading ? (
-				<Loader />
+				<div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6 max-w-4xl mt-8 mb-20">
+					{Array.from({ length: 4 }).map((_, index) => (
+						<div key={index} className="col-span-1 flex flex-col gap-4">
+							<SkeletonLoader variant="text" width="100%" height="20px" />
+							<SkeletonLoader variant="rectangular" width="100%" height="40px" />
+						</div>
+					))}
+				</div>
 			) : (
 				<div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6 max-w-4xl mt-8 mb-20">
 					<div className="col-span-1 flex flex-col gap-4">
@@ -173,7 +179,26 @@ const TrendPage: React.FC = () => {
 				</div>
 			)}
 			{loading ? (
-				<Loader />
+				<>
+					{/* Insights Skeleton */}
+					<div className="mb-8">
+						<div className="space-y-3">
+							{Array.from({ length: 3 }).map((_, index) => (
+								<SkeletonLoader key={index} variant="text" width="100%" />
+							))}
+						</div>
+					</div>
+
+					{/* Chart Skeleton */}
+					<div className="grid grid-cols-1 md:grid-cols-1 gap-8 mt-20">
+						<div>
+							<SkeletonLoader variant="text" width="300px" height="32px" className="mb-5" />
+							<div className="h-[500px] p-6 bg-card rounded-[16px] flex items-center justify-center">
+								<SkeletonLoader variant="rectangular" width="100%" height="400px" />
+							</div>
+						</div>
+					</div>
+				</>
 			) : selectedOption === 'category' ? (
 				<>
 					{categoryInsights && categoryInsights.length > 0 && (

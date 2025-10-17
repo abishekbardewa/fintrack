@@ -8,7 +8,7 @@ import AddExpenseModal from './AddExpenseModal';
 import { useExpenseContext } from './context/ExpenseProvider';
 import ConfirmModal from './common/ConfirmModal';
 import { MdOutlineCancel } from 'react-icons/md';
-import Loader from './common/Loader';
+import { SkeletonLoader } from './common';
 import { formatCurrency } from '../utils';
 
 const ExpenseCategory: React.FC = () => {
@@ -37,7 +37,34 @@ const ExpenseCategory: React.FC = () => {
 	};
 
 	if (loading) {
-		return null;
+		return (
+			<div>
+				<SectionHeader
+					title="Expense Categories"
+					action={
+						<Button buttonType="button" size="md" variant="outline" startIcon={<FaPlus />} onClick={() => setShowCategoryModal(true)}>
+							New category
+						</Button>
+					}
+				/>
+				<ul role="list" className="h-[500px] overflow-y-auto scrollbar-hidden">
+					{Array.from({ length: 6 }).map((_, index) => (
+						<li key={index} className="flex justify-between gap-x-6 py-3">
+							<div className="flex min-w-0 gap-x-4 flex-1">
+								<div className="min-w-0 flex-auto">
+									<SkeletonLoader variant="text" width="60%" />
+								</div>
+							</div>
+							<div className="flex shrink-0 items-center gap-x-4">
+								<SkeletonLoader variant="text" width="80px" />
+								<SkeletonLoader variant="circular" width={24} height={24} />
+								<SkeletonLoader variant="circular" width={20} height={20} />
+							</div>
+						</li>
+					))}
+				</ul>
+			</div>
+		);
 	}
 
 	return (

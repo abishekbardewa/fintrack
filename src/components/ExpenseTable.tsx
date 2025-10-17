@@ -7,7 +7,7 @@ import ConfirmModal from './common/ConfirmModal';
 import { MdOutlineCancel } from 'react-icons/md';
 import EditExpenseModal from './EditExpenseModal';
 import { formatCurrency, formatDate } from '../utils';
-import Loader from './common/Loader';
+import { SkeletonLoader } from './common';
 import Pagination from './common/Pagination';
 
 interface ExpenseRecord {
@@ -57,7 +57,24 @@ const ExpenseTable: React.FC = () => {
 			<SectionHeader title="Expense Entries" />
 			<div className="min-w-full align-middle  bg-card rounded-[16px]  h-[500px] overflow-y-auto overflow-x-auto  scrollbar-hidden">
 				{paginationLoading ? (
-					<Loader />
+					<div className="p-4">
+						{Array.from({ length: 8 }).map((_, index) => (
+							<div key={index} className="flex justify-between gap-x-6 py-4 border-b border-border last:border-b-0">
+								<div className="flex min-w-0 gap-x-4 flex-1">
+									<div className="min-w-0 flex-auto">
+										<SkeletonLoader variant="text" width="40%" className="mb-1" />
+										<SkeletonLoader variant="text" width="60%" height="12px" />
+									</div>
+								</div>
+								<div className="flex shrink-0 items-center gap-x-4">
+									<SkeletonLoader variant="text" width="100px" />
+									<SkeletonLoader variant="text" width="80px" />
+									<SkeletonLoader variant="circular" width={20} height={20} />
+									<SkeletonLoader variant="circular" width={20} height={20} />
+								</div>
+							</div>
+						))}
+					</div>
 				) : paginatedExpenses && paginatedExpenses.length > 0 ? (
 					<table className="min-w-full divide-y divide-border">
 						<thead className="bg-muted">
@@ -76,7 +93,7 @@ const ExpenseTable: React.FC = () => {
 								</th>
 							</tr>
 						</thead>
-						<tbody className="divide-y divide-border bg-card">
+						<tbody className="divide-y divide-border bg-white">
 							{paginatedExpenses.map((expense, idx) => (
 								<tr key={`${expense.category}-${idx}`}>
 									<td className="py-4 pl-4 pr-3 text-sm font-medium text-foreground">

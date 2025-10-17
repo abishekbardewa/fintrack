@@ -7,7 +7,7 @@ import { axiosPrivate } from '../services/axios.service';
 import { toast } from 'react-toastify';
 import { Bar, Doughnut, Line } from 'react-chartjs-2';
 import 'chart.js/auto';
-import Loader from '../components/common/Loader';
+import { SkeletonLoader } from '../components/common';
 import EmptyState from '../components/common/EmptyState';
 import { formatCurrency, formatDate } from '../utils';
 const History: React.FC = () => {
@@ -107,7 +107,67 @@ const History: React.FC = () => {
 			</div>
 
 			{loading ? (
-				<Loader />
+				<>
+					{/* Insights Skeleton */}
+					<div className="mb-8">
+						<SkeletonLoader variant="text" width="120px" height="32px" className="mb-5" />
+						<div className="space-y-3">
+							{Array.from({ length: 4 }).map((_, index) => (
+								<SkeletonLoader key={index} variant="text" width="100%" />
+							))}
+						</div>
+					</div>
+
+					{/* Charts Skeleton */}
+					<div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-20">
+						<Card padding="lg">
+							<SkeletonLoader variant="text" width="200px" height="24px" className="mb-5" />
+							<div className="h-[400px] flex items-center justify-center">
+								<SkeletonLoader variant="rectangular" width="100%" height="300px" />
+							</div>
+						</Card>
+						<Card padding="lg">
+							<SkeletonLoader variant="text" width="200px" height="24px" className="mb-5" />
+							<div className="h-[400px] flex items-center justify-center">
+								<SkeletonLoader variant="rectangular" width="100%" height="300px" />
+							</div>
+						</Card>
+					</div>
+
+					{/* Monthly Expense Cards Skeleton */}
+					<div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-20">
+						{Array.from({ length: 2 }).map((_, index) => (
+							<Card key={index} padding="lg">
+								<SkeletonLoader variant="text" width="250px" height="24px" className="mb-5" />
+
+								{/* Chart skeleton */}
+								<div className="h-[300px] mb-4 flex items-center justify-center">
+									<SkeletonLoader variant="circular" width={200} height={200} />
+								</div>
+
+								{/* Table skeleton */}
+								<div className="overflow-x-auto border border-border rounded-lg">
+									<div className="min-w-full">
+										{/* Table header */}
+										<div className="bg-muted px-3 py-2 flex">
+											<SkeletonLoader variant="text" width="80px" className="mr-4" />
+											<SkeletonLoader variant="text" width="100px" className="mr-4" />
+											<SkeletonLoader variant="text" width="60px" />
+										</div>
+										{/* Table rows */}
+										{Array.from({ length: 4 }).map((_, rowIndex) => (
+											<div key={rowIndex} className="px-3 py-2 border-b border-border last:border-b-0 flex">
+												<SkeletonLoader variant="text" width="60%" className="mr-4" />
+												<SkeletonLoader variant="text" width="25%" className="mr-4" />
+												<SkeletonLoader variant="text" width="15%" />
+											</div>
+										))}
+									</div>
+								</div>
+							</Card>
+						))}
+					</div>
+				</>
 			) : (
 				<>
 					{insights && (
@@ -173,7 +233,7 @@ const History: React.FC = () => {
 							{totalSpentData && (
 								<div>
 									<h2 className="text-2xl font-semibold leading-6 text-foreground mb-5">Total Spent Comparison</h2>
-									<div className="h-[500px] p-6 bg-white rounded-[16px]">
+									<div className="h-[500px] p-6 bg-card rounded-[16px]">
 										{totalSpentData?.labels.length > 0 ? (
 											<Bar
 												data={totalSpentData}
