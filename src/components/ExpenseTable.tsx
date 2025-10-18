@@ -83,6 +83,9 @@ const ExpenseTable: React.FC = () => {
 									Category
 								</th>
 								<th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-foreground whitespace-nowrap">
+									Spent on
+								</th>
+								<th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-foreground whitespace-nowrap">
 									Added date
 								</th>
 								<th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-foreground">
@@ -101,7 +104,8 @@ const ExpenseTable: React.FC = () => {
 										{expense.description && <p className="mt-1   text-xs leading-5 text-muted-foreground">{expense.description}</p>}
 									</td>
 									<td className="whitespace-nowrap px-3 py-4 text-sm text-muted-foreground">{formatDate(expense.date)}</td>
-									<td className="whitespace-nowrap px-3 py-4 text-sm text-muted-foreground">{formatCurrency(expense.amount)}</td>
+									<td className="whitespace-nowrap px-3 py-4 text-sm text-muted-foreground">{formatDate(expense?.createdAt)}</td>
+									<td className="whitespace-nowrap px-3 py-4 text-sm text-muted-foreground">{formatCurrency(expense?.amount)}</td>
 
 									<td className="whitespace-nowrap  px-3 py-5 text-right text-sm font-medium sm:pr-0 ">
 										<div className="flex item-center  gap-4">

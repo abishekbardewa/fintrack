@@ -288,6 +288,9 @@ const History: React.FC = () => {
 																		Category
 																	</th>
 																	<th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-foreground whitespace-nowrap">
+																		Spent on
+																	</th>
+																	<th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-foreground whitespace-nowrap">
 																		Added date
 																	</th>
 																	<th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-foreground">
@@ -305,10 +308,8 @@ const History: React.FC = () => {
 																			{entry?.category}
 																			{entry?.description && <p className="mt-1 text-xs leading-5 text-muted-foreground">{entry?.description}</p>}
 																		</td>
-																		<td className="whitespace-nowrap px-3 py-4 text-sm text-muted-foreground">
-																			{formatDate(entry.date)}
-																			{/* {entry?.date} */}
-																		</td>
+																		<td className="whitespace-nowrap px-3 py-4 text-sm text-muted-foreground">{formatDate(entry?.date)}</td>
+																		<td className="whitespace-nowrap px-3 py-4 text-sm text-muted-foreground">{formatDate(entry?.createdAt)}</td>
 																		<td className="whitespace-nowrap px-3 py-4 text-sm text-muted-foreground">{formatCurrency(entry?.amount)}</td>
 																	</tr>
 																))}
