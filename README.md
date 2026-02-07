@@ -1,50 +1,32 @@
-# React + TypeScript + Vite
+# FinTrack — Personal Finance Analytics Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Overview
+**FinTrack** is a personal finance analytics dashboard that helps users track expenses, manage categories, and analyze spending patterns over time.  
+The application emphasizes **data-heavy UI performance, clarity of insights, and reliable authenticated workflows**.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Core User Flows
+- Secure authentication and session handling  
+- Category-based expense creation and management  
+- Monthly summaries with visual breakdowns  
+- Trend analysis and period-over-period comparisons  
+- Cached filters and preferences for repeat analysis  
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Key Engineering Decisions
+- **State management**: Used Redux Toolkit with memoized selectors to efficiently manage expense data and avoid unnecessary re-renders in chart-heavy views.  
+- **Data visualization**: Structured frontend data models to feed chart components efficiently, enabling clear month-over-month and long-term trend insights.  
+- **Performance optimization**: Implemented skeleton loaders, cached filters, and render optimizations to maintain smooth interactions during frequent data updates.  
+- **API & auth handling**: Integrated JWT-based authentication with Axios interceptors to ensure consistent session management and error handling.  
+- **Maintainable UI structure**: Organized the application around reusable components and predictable data flows to keep complexity manageable as features grow.
 
-- Configure the top-level `parserOptions` property like this:
+---
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
-
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+## Tech Stack
+- React 18, TypeScript  
+- Redux Toolkit  
+- Chart.js  
+- REST APIs  
+- JWT-based authentication  
